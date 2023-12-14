@@ -1,0 +1,9 @@
+/wp-config.php
+/.htaccess
+/.idea/modules.xml
+/.idea/deployment.xml
+/.idea/.gitignore
+/.idea/php.xml
+/.idea/vcs.xml
+/.idea/woo.iml
+/wp-content/uploads/2023/

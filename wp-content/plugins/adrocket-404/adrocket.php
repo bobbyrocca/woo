@@ -10,6 +10,14 @@
 add_action( 'template_redirect', 'custom_404_redirect' );
 
 function custom_404_redirect() {
+
+	// home page redirect to shop page
+
+	if ( is_front_page() ) {
+		wp_redirect( get_permalink( get_option( 'woocommerce_shop_page_id' ) ) );
+		exit;
+	}
+
 	$redirect_pages = [
 		'blog',
 		'another-page',
