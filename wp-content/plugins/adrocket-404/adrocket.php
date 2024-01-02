@@ -7,6 +7,10 @@
  * Author: Halexo Limited
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 add_action( 'template_redirect', 'custom_404_redirect' );
 
 function custom_404_redirect() {
