@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Custom Cart Link per WooCommerce
+ * Plugin Name: Adrocket Custom Cart Icon
  * Description: Sostituisce il mini-carrello di WooCommerce con un link alla pagina del carrello.
  * Version: 1.0
- * Author: Il Tuo Nome
+ * Author: Halexo Limited
  */
 
 function custom_cart_link_shortcode(): string {
