@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: Adrocket Product Price Update
- * Description: Aggiorni prezzi speciali in base alla quantità per i prodotti WooCommerce.
+ * Description: Aggiorni prezzi i prezzi in product page in base alla quantità selezionata.
  * Version: 1.0
  * Author: Halexo Limited
  */
 
 function get_updated_price_callback() {
 	$product_id   = $_POST['product_id'];
-	$quantity     = $_POST['quantity'];
+	$quantity     = 0 + $_POST['quantity'];
 	$variation_id = $_POST['variation_id'] ?? null;
 
 	// Ottieni l'oggetto prodotto
@@ -31,6 +31,7 @@ function get_updated_price_callback() {
 	$regular_price = $product->get_regular_price(); // Prezzo regolare
 	$sale_price    = $regular_price; // Inizializza sale_price con il prezzo regolare
 
+
 	// Calcola il prezzo in base alla quantità
 	if ( $quantity == 1 && ! empty( $price_for_one ) ) {
 		$sale_price = $price_for_one;
@@ -40,13 +41,20 @@ function get_updated_price_callback() {
 		$sale_price = $price_for_three / 3;
 	}
 
+	$regular_price = floatval($regular_price);
+	$sale_price = floatval($sale_price);
+
 	// Costruisci e invia la risposta JSON
 	$response = array(
-		'sale_price'         => wc_price( $sale_price * $quantity ),
-		'regular_price'      => wc_price( $regular_price * $quantity ),
-		'unit_sale_price'    => wc_price( $sale_price ),
-		'unit_regular_price' => wc_price( $regular_price  ),
-		'quantity'           => $quantity
+		'wp_sale_price'     => wc_price( $sale_price * $quantity ),
+		'wp_regular_price'  => wc_price( $regular_price * $quantity ),
+		'sale_price'          => $sale_price * $quantity,
+		'regular_price'       => $regular_price * $quantity,
+		'unit_sale_price'     => $sale_price,
+		'unit_regular_price'  => $regular_price,
+		'quantity'            => $quantity,
+		'discount_percentage' => floor( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 ),
+		'saving'              => ( $regular_price - $sale_price ) * $quantity
 	);
 
 	echo json_encode( $response );

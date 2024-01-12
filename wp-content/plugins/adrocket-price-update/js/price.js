@@ -32,15 +32,15 @@ jQuery(document).ready(function ($) {
 
                     console.log({response: json_response});
                     // Aggiorna il prezzo di vendita
-                    if (json_response.sale_price) {
+                    if (json_response.sale_price && json_response.hasOwnProperty('wp_sale_price')) {
                         console.log("Prezzo di vendita:", json_response.sale_price);
-                        $('.wp-block-woocommerce-product-price .sale-price .woocommerce-Price-amount bdi').html(json_response.sale_price);
+                        $('.wp-block-woocommerce-product-price .sale-price .woocommerce-Price-amount bdi').html(json_response.wp_sale_price);
                     }
 
                     // Aggiorna il prezzo regolare
-                    if (json_response.regular_price) {
+                    if (json_response.regular_price && json_response.hasOwnProperty('wp_regular_price')) {
                         console.log("Prezzo regolare:", json_response.regular_price);
-                        $('.wp-block-woocommerce-product-price .regular-price .woocommerce-Price-amount bdi').html(json_response.regular_price);
+                        $('.wp-block-woocommerce-product-price .regular-price .woocommerce-Price-amount bdi').html(json_response.wp_regular_price);
                     }
                 }
             },
