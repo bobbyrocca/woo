@@ -1,0 +1,27 @@
+2024-01-10T13:04:15+00:00 CRITICAL Uncaught TypeError: Unsupported operand types: string * string in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php:126
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): get_updated_price_callback('')
+#1 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\wamp64\www\woo\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\wamp64\www\woo\wp-admin\admin-ajax.php(188): do_action('wp_ajax_get_upd...')
+#4 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php on line 126
+
+2024-01-10T13:04:17+00:00 CRITICAL Uncaught TypeError: Unsupported operand types: string * string in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php:126
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): get_updated_price_callback('')
+#1 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\wamp64\www\woo\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\wamp64\www\woo\wp-admin\admin-ajax.php(188): do_action('wp_ajax_get_upd...')
+#4 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php on line 126
+
+2024-01-10T13:04:21+00:00 CRITICAL Uncaught TypeError: Unsupported operand types: string * string in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php:126
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): get_updated_price_callback('')
+#1 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\wamp64\www\woo\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\wamp64\www\woo\wp-admin\admin-ajax.php(188): do_action('wp_ajax_get_upd...')
+#4 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-quantity-based-price\index.php on line 126
+

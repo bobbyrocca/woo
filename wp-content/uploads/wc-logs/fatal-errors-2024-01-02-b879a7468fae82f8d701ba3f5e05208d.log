@@ -1,0 +1,79 @@
+2024-01-02T11:04:17+00:00 CRITICAL Uncaught TypeError: Unsupported operand types: string - string in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php:36
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): add_sale_badge_to_products('')
+#1 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#2 C:\wamp64\www\woo\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Templates\AbstractTemplateCompatibility.php(196): do_action('woocommerce_bef...')
+#4 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Templates\ArchiveProductTemplatesCompatibility.php(147): Automattic\WooCommerce\Blocks\Templates\AbstractTemplateCompatibility->get_hooks_buffer(Array, 'before')
+#5 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Templates\AbstractTemplateCompatibility.php(71): Automattic\WooCommerce\Blocks\Templates\ArchiveProductTemplatesCompatibility->inject_hooks('\n<div data-bloc...', Array)
+#6 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(326): Automattic\WooCommerce\Blocks\Templates\AbstractTemplateCompatibility->Automattic\WooCommerce\Blocks\Templates\{closure}('\n<div data-bloc...', Array)
+#7 C:\wamp64\www\woo\wp-includes\plugin.php(205): WP_Hook->apply_filters('\n<div data-bloc...', Array)
+#8 C:\wamp64\www\woo\wp-includes\class-wp-block.php(293): apply_filters('render_block', '\n<div data-bloc...', Array, Object(WP_Block))
+#9 C:\wamp64\www\woo\wp-includes\blocks\post-template.php(119): WP_Block->render(Array)
+#10 C:\wamp64\www\woo\wp-includes\class-wp-block.php(258): render_block_core_post_template(Array, '<li class="wp-b...', Object(WP_Block))
+#11 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#12 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#13 C:\wamp64\www\woo\wp-includes\blocks.php(1484): WP_Block->render()
+#14 C:\wamp64\www\woo\wp-includes\blocks.php(1522): render_block(Array)
+#15 C:\wamp64\www\woo\wp-includes\block-template.php(263): do_blocks('<!-- wp:templat...')
+#16 C:\wamp64\www\woo\wp-includes\template-canvas.php(12): get_the_block_template_html()
+#17 C:\wamp64\www\woo\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\w...')
+#18 C:\wamp64\www\woo\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\w...')
+#19 C:\wamp64\www\woo\index.php(17): require('C:\\wamp64\\www\\w...')
+#20 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php on line 36
+
+2024-01-02T11:13:13+00:00 CRITICAL Uncaught TypeError: Unsupported operand types: string - string in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php:24
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): custom_sale_badge('<span class="on...', Object(WP_Post), Object(WC_Product_Variable))
+#1 C:\wamp64\www\woo\wp-includes\plugin.php(205): WP_Hook->apply_filters('<span class="on...', Array)
+#2 C:\wamp64\www\woo\wp-content\plugins\woocommerce\templates\single-product\sale-flash.php(27): apply_filters('woocommerce_sal...', '<span class="on...', Object(WP_Post), Object(WC_Product_Variable))
+#3 C:\wamp64\www\woo\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include('C:\\wamp64\\www\\w...')
+#4 C:\wamp64\www\woo\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1696): wc_get_template('single-product/...')
+#5 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\BlockTypes\ProductImageGallery.php(62): woocommerce_show_product_sale_flash()
+#6 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\BlockTypes\AbstractBlock.php(88): Automattic\WooCommerce\Blocks\BlockTypes\ProductImageGallery->render(Array, '', Object(WP_Block))
+#7 C:\wamp64\www\woo\wp-includes\class-wp-block.php(258): Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock->render_callback(Array, '', Object(WP_Block))
+#8 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#9 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#10 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#11 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#12 C:\wamp64\www\woo\wp-includes\blocks.php(1484): WP_Block->render()
+#13 C:\wamp64\www\woo\wp-includes\blocks.php(1522): render_block(Array)
+#14 C:\wamp64\www\woo\wp-includes\block-template.php(260): do_blocks('<!-- wp:templat...')
+#15 C:\wamp64\www\woo\wp-includes\template-canvas.php(12): get_the_block_template_html()
+#16 C:\wamp64\www\woo\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\w...')
+#17 C:\wamp64\www\woo\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\w...')
+#18 C:\wamp64\www\woo\index.php(17): require('C:\\wamp64\\www\\w...')
+#19 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php on line 24
+
+2024-01-02T14:12:02+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function custom_price_order(), 1 passed in C:\wamp64\www\woo\wp-includes\class-wp-hook.php on line 326 and exactly 2 expected in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php:95
+Stack trace:
+#0 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(326): custom_price_order('<span class="wo...')
+#1 C:\wamp64\www\woo\wp-includes\plugin.php(205): WP_Hook->apply_filters('<span class="wo...', Array)
+#2 C:\wamp64\www\woo\wp-content\plugins\woocommerce\includes\class-wc-product-variable.php(184): apply_filters('woocommerce_get...', '<span class="wo...', Object(WC_Product_Variable))
+#3 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\StoreApi\Schemas\V1\ProductSchema.php(467): WC_Product_Variable->get_price_html()
+#4 [internal function]: Automattic\WooCommerce\StoreApi\Schemas\V1\ProductSchema->get_item_response(Object(WC_Product_Variable))
+#5 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\BlockTypes\AbstractProductGrid.php(114): array_map(Array, Array)
+#6 C:\wamp64\www\woo\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\BlockTypes\AbstractBlock.php(88): Automattic\WooCommerce\Blocks\BlockTypes\AbstractProductGrid->render(Array, '', Object(WP_Block))
+#7 C:\wamp64\www\woo\wp-includes\class-wp-block.php(258): Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock->render_callback(Array, '', Object(WP_Block))
+#8 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#9 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#10 C:\wamp64\www\woo\wp-includes\blocks.php(1484): WP_Block->render()
+#11 C:\wamp64\www\woo\wp-includes\blocks.php(1522): render_block(Array)
+#12 C:\wamp64\www\woo\wp-includes\class-wp-hook.php(324): do_blocks('<!-- wp:woocomm...')
+#13 C:\wamp64\www\woo\wp-includes\plugin.php(205): WP_Hook->apply_filters('<!-- wp:woocomm...', Array)
+#14 C:\wamp64\www\woo\wp-includes\blocks\post-content.php(48): apply_filters('the_content', '<!-- wp:woocomm...')
+#15 C:\wamp64\www\woo\wp-includes\class-wp-block.php(258): render_block_core_post_content(Array, '<!-- wp:woocomm...', Object(WP_Block))
+#16 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#17 C:\wamp64\www\woo\wp-includes\class-wp-block.php(244): WP_Block->render()
+#18 C:\wamp64\www\woo\wp-includes\blocks.php(1484): WP_Block->render()
+#19 C:\wamp64\www\woo\wp-includes\blocks.php(1522): render_block(Array)
+#20 C:\wamp64\www\woo\wp-includes\block-template.php(260): do_blocks('<!-- wp:group {...')
+#21 C:\wamp64\www\woo\wp-includes\template-canvas.php(12): get_the_block_template_html()
+#22 C:\wamp64\www\woo\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\w...')
+#23 C:\wamp64\www\woo\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\w...')
+#24 C:\wamp64\www\woo\index.php(17): require('C:\\wamp64\\www\\w...')
+#25 {main}
+  thrown in C:\wamp64\www\woo\wp-content\plugins\adrocket-sales-badge\adrocket.php on line 95
+
