@@ -1,17 +1,18 @@
 jQuery(document).ready(function ($) {
     console.log("Documento pronto.");
 
-    $('#quantity-selector, #variant-selector').on('change', function () {
-        console.log("Evento change rilevato.");
-
+    $(document).on('change', '#quantity-selector, .individual-variant-selector', function () {
         let quantity = $('#quantity-selector').val();
         let product_id = adrocket_ajax_object.product_id;
-        let variation_id = $('#variant-selector').val() || '';
+        let variation_ids = [];
+
+        $('#variant-selectors-container .individual-variant-selector:visible').each(function () {
+            variation_ids.push($(this).val());
+        });
 
         console.log("Quantità selezionata:", quantity);
         console.log("ID Prodotto:", product_id);
-        console.log("ID Variante:", variation_id);
-        console.log("URL AJAX:", adrocket_ajax_object.ajax_url);
+        console.log("ID Varianti:", variation_ids);
 
         $.ajax({
             url: adrocket_ajax_object.ajax_url,
@@ -20,7 +21,7 @@ jQuery(document).ready(function ($) {
                 action: 'get_updated_price',
                 product_id: product_id,
                 quantity: quantity,
-                variation_id: variation_id
+                variation_ids: variation_ids // Ora è un array di ID
             },
             success: function (response) {
 

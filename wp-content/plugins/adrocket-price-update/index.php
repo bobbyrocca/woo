@@ -7,54 +7,71 @@
  */
 
 function get_updated_price_callback() {
-	$product_id   = $_POST['product_id'];
-	$quantity     = 0 + $_POST['quantity'];
-	$variation_id = $_POST['variation_id'] ?? null;
+	$product_id    = $_POST['product_id'];
+	$quantity      = 0 + $_POST['quantity'];
+	$variation_ids = $_POST['variation_ids'] ?? array();
 
-	// Ottieni l'oggetto prodotto
-	$product = $variation_id ? wc_get_product( $variation_id ) : wc_get_product( $product_id );
+	$total_regular_price = 0;
+	$total_sale_price    = 0;
 
+	if ( empty( $variation_ids ) ) {
+		$product = wc_get_product( $product_id );
 
-	if ( ! $product ) {
-		wp_die(); // Termina se il prodotto non esiste
+		if ( ! $product ) {
+			echo json_encode( array( 'error' => 'Prodotto non trovato' ) );
+			wp_die();
+		}
+
+		// Prezzi basati sulla quantità
+		$price_for_one   = get_post_meta( $product_id, 'qty_based_price_1', true );
+		$price_for_two   = get_post_meta( $product_id, 'qty_based_price_2', true );
+		$price_for_three = get_post_meta( $product_id, 'qty_based_price_3', true );
+
+		// Calcola il prezzo in base alla quantità
+		if ( $quantity == 1 && ! empty( $price_for_one ) ) {
+			$sale_price = $price_for_one;
+		} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
+			$sale_price = $price_for_two;
+		} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
+			$sale_price = $price_for_three;
+		} else {
+			$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
+		}
+
+		// Calcola il prezzo per il prodotto principale
+		$total_regular_price = floatval( $product->get_regular_price() * $quantity );
+		$total_sale_price    = floatval( $sale_price );
+	} else {
+
+		$quantity = count( $variation_ids );
+
+		foreach ( $variation_ids as $variation_id ) {
+			$product = wc_get_product( $variation_id );
+
+			if ( ! $product ) {
+				continue; // Salta se il prodotto non esiste
+			}
+
+			$regular_price = floatval( $product->get_regular_price() );
+			$sale_price    = floatval( $product->get_sale_price() ) ?: $regular_price;
+
+			// Calcola il prezzo per ogni variante (considerando una quantità di 1 per variante)
+			$total_regular_price += $regular_price;
+			$total_sale_price    += $sale_price;
+		}
 	}
-
-	// Utilizza l'ID della variante se disponibile, altrimenti l'ID del prodotto
-	$id_to_use = $variation_id ?: $product_id;
-
-	// Prezzi basati sulla quantità
-	$price_for_one   = get_post_meta( $id_to_use, 'qty_based_price_1', true );
-	$price_for_two   = get_post_meta( $id_to_use, 'qty_based_price_2', true );
-	$price_for_three = get_post_meta( $id_to_use, 'qty_based_price_3', true );
-
-	// Definisci il prezzo regolare e il prezzo di vendita
-	$regular_price = $product->get_regular_price(); // Prezzo regolare
-	$sale_price    = $regular_price; // Inizializza sale_price con il prezzo regolare
-
-
-	// Calcola il prezzo in base alla quantità
-	if ( $quantity == 1 && ! empty( $price_for_one ) ) {
-		$sale_price = $price_for_one;
-	} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
-		$sale_price = $price_for_two / 2;
-	} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
-		$sale_price = $price_for_three / 3;
-	}
-
-	$regular_price = floatval($regular_price);
-	$sale_price = floatval($sale_price);
 
 	// Costruisci e invia la risposta JSON
 	$response = array(
-		'wp_sale_price'     => wc_price( $sale_price * $quantity ),
-		'wp_regular_price'  => wc_price( $regular_price * $quantity ),
-		'sale_price'          => $sale_price * $quantity,
-		'regular_price'       => $regular_price * $quantity,
-		'unit_sale_price'     => $sale_price,
-		'unit_regular_price'  => $regular_price,
+		'wp_sale_price'       => wc_price( $total_sale_price ),
+		'wp_regular_price'    => wc_price( $total_regular_price ),
+		'sale_price'          => $total_sale_price,
+		'regular_price'       => $total_regular_price,
+		'unit_sale_price'     => $total_sale_price / $quantity,
+		'unit_regular_price'  => $total_regular_price / $quantity,
 		'quantity'            => $quantity,
-		'discount_percentage' => floor( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 ),
-		'saving'              => ( $regular_price - $sale_price ) * $quantity
+		'discount_percentage' => $total_regular_price > 0 ? floor( ( ( $total_regular_price - $total_sale_price ) / $total_regular_price ) * 100 ) : 0,
+		'saving'              => $total_regular_price - $total_sale_price
 	);
 
 	echo json_encode( $response );
