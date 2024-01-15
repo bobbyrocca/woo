@@ -14,10 +14,6 @@ function get_updated_price_callback() {
 	$total_regular_price = 0;
 	$total_sale_price    = 0;
 
-	$price_for_one   = 0;
-	$price_for_two   = 0;
-	$price_for_three = 0;
-
 	if ( empty( $variation_ids ) ) {
 		$product = wc_get_product( $product_id );
 
@@ -37,7 +33,7 @@ function get_updated_price_callback() {
 		} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
 			$sale_price = $price_for_two;
 		} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
-			$sale_price = $price_for_three;
+			$sale_price = $price_for_three + $price_for_three * ($quantity - 3) / 3;
 		} else {
 			$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
 		}
@@ -70,7 +66,7 @@ function get_updated_price_callback() {
 			} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
 				$sale_price = $price_for_two;
 			} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
-				$sale_price = $price_for_three;
+				$sale_price = $price_for_three + $price_for_three * ($quantity - 3) / 3;
 			} else {
 				$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
 			}

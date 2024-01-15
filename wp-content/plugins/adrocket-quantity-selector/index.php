@@ -17,7 +17,7 @@ function adrocket_quantity_selector(): string {
 
 	// Genera il menu a tendina per la quantità
 	$output = '<select id="quantity-selector">';
-	for ( $i = 1; $i <= 10; $i++ ) {
+	for ( $i = 1; $i <= 3; $i++ ) {
 		$output .= '<option value="' . $i . '">' . $i . '</option>';
 	}
 	$output .= '</select>';
