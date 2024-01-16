@@ -87,7 +87,7 @@ add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selector_radio' );
 
 function selector_enqueue_scripts() {
 	if (is_product()) {
-		wp_enqueue_script('adrocket-quantity-selector-js', plugin_dir_url(__FILE__) . 'js/selector.js', array('jquery'), '1.0', true);
+		wp_enqueue_script('adrocket-quantity-selector-js', plugin_dir_url(__FILE__) . 'js/selector.js', array('jquery'), microtime(), true);
 	}
 }
 add_action('wp_enqueue_scripts', 'selector_enqueue_scripts');

@@ -6,7 +6,6 @@ jQuery(document).ready(function ($) {
 
     // Handler per i pulsanti radio
     $('input[type=radio][name=quantity]').on('change', function () {
-        console.log("Pulsante radio selezionato:", $(this).val());
         updateVariantSelectors(parseInt($(this).val()));
     });
 

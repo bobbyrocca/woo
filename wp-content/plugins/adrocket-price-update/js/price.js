@@ -2,9 +2,12 @@ jQuery(document).ready(function ($) {
     console.log("Documento pronto.");
 
     $(document).on('change', '#quantity-selector, .individual-variant-selector', function () {
-
         let quantity = parseInt($('#quantity-selector').val());
+        updatePrice(quantity);
+    });
 
+    $(document).on('change', 'input[type=radio][name=quantity], .individual-variant-selector', function () {
+        let quantity = parseInt($('input[type=radio][name=quantity]:checked').val());
         updatePrice(quantity);
     });
 
