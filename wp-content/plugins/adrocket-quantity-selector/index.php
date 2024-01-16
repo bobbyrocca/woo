@@ -64,7 +64,8 @@ function adrocket_quantity_selector_radio(): string {
 	// Generate radio buttons for quantity
 	$output = '<div id="quantity-selector-radio">';
 	for ( $i = 1; $i <= 3; $i++ ) {
-		$output .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '">';
+		$checked = ($i === 1) ? ' checked' : ''; // Aggiungi checked per il primo radio button
+		$output .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
 		$output .= '<label for="quantity' . $i . '">' . $i . '</label>';
 	}
 	$output .= '</div>';

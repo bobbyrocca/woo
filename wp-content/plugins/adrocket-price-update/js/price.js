@@ -2,12 +2,19 @@ jQuery(document).ready(function ($) {
     console.log("Documento pronto.");
 
     $(document).on('change', '#quantity-selector, .individual-variant-selector', function () {
-        updatePrice();
+
+        let quantity = parseInt($('#quantity-selector').val());
+
+        updatePrice(quantity);
     });
 
-    function updatePrice() {
+    function updatePrice(quantity) {
 
-        let quantity = $('#quantity-selector').val();
+        if (isNaN(quantity)) {
+            // Gestisci il caso in cui selectedQuantity non sia un numero
+            return;
+        }
+
         let product_id = adrocket_ajax_object.product_id;
         let variation_ids = [];
 

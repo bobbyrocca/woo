@@ -1,10 +1,15 @@
 jQuery(document).ready(function ($) {
     $('#quantity-selector').on('change', function () {
-        updateVariantSelectors();
+        updateVariantSelectors(parseInt($(this).val()));
     });
 
-    function updateVariantSelectors() {
-        let selectedQuantity = parseInt($(this).val());
+    function updateVariantSelectors(selectedQuantity) {
+
+        if (isNaN(selectedQuantity)) {
+            // Gestisci il caso in cui selectedQuantity non sia un numero
+            return;
+        }
+
         let selectorsContainer = $('#variant-selectors-container');
         let currentSelectors = selectorsContainer.find('.individual-variant-selector').length;
 
