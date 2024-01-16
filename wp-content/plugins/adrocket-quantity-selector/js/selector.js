@@ -1,5 +1,12 @@
 jQuery(document).ready(function ($) {
+    // Handler per il selettore a discesa
     $('#quantity-selector').on('change', function () {
+        updateVariantSelectors(parseInt($(this).val()));
+    });
+
+    // Handler per i pulsanti radio
+    $('input[type=radio][name=quantity]').on('change', function () {
+        console.log("Pulsante radio selezionato:", $(this).val());
         updateVariantSelectors(parseInt($(this).val()));
     });
 
