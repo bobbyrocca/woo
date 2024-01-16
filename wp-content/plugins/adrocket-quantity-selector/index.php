@@ -62,7 +62,7 @@ function adrocket_quantity_selector_radio(): string {
 	$product_id = $product->get_id();
 
 	// Generate radio buttons for quantity
-	$output = '<div id="quantity-selector">';
+	$output = '<div id="quantity-selector-radio">';
 	for ( $i = 1; $i <= 3; $i++ ) {
 		$output .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '">';
 		$output .= '<label for="quantity' . $i . '">' . $i . '</label>';

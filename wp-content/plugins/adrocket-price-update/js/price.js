@@ -2,6 +2,11 @@ jQuery(document).ready(function ($) {
     console.log("Documento pronto.");
 
     $(document).on('change', '#quantity-selector, .individual-variant-selector', function () {
+        updatePrice();
+    });
+
+    function updatePrice() {
+
         let quantity = $('#quantity-selector').val();
         let product_id = adrocket_ajax_object.product_id;
         let variation_ids = [];
@@ -49,5 +54,5 @@ jQuery(document).ready(function ($) {
                 console.error("Errore AJAX:", xhr, status, error);
             }
         });
-    });
+    }
 });
