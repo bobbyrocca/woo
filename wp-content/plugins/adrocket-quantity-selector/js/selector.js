@@ -1,20 +1,30 @@
 jQuery(document).ready(function ($) {
+    // Handler for dropdown
     $('#quantity-selector').on('change', function () {
-        var selectedQuantity = parseInt($(this).val());
-        var selectorsContainer = $('#variant-selectors-container');
-        var currentSelectors = selectorsContainer.find('.individual-variant-selector').length;
+        updateVariantSelectors($(this));
+    });
 
-        // Aggiungi selettori di varianti se necessario
-        for (var i = currentSelectors + 1; i <= selectedQuantity; i++) {
-            var clonedSelector = selectorsContainer.find('.individual-variant-selector:first').clone();
+    // Handler for radio buttons
+    $('#quantity-selector-radio input[type=radio]').on('click', function () {
+        updateVariantSelectors($(this));
+    });
+
+    function updateVariantSelectors(element) {
+        let selectedQuantity = parseInt(element.val());
+        let selectorsContainer = $('#variant-selectors-container');
+        let currentSelectors = selectorsContainer.find('.individual-variant-selector').length;
+
+        // Add variant selectors if needed
+        for (let i = currentSelectors + 1; i <= selectedQuantity; i++) {
+            let clonedSelector = selectorsContainer.find('.individual-variant-selector:first').clone();
             clonedSelector.show();
             selectorsContainer.append(clonedSelector);
         }
 
-        // Rimuovi selettori di varianti in eccesso
+        // Remove excess variant selectors
         while (currentSelectors > selectedQuantity) {
             selectorsContainer.find('.individual-variant-selector:last').remove();
             currentSelectors--;
         }
-    });
+    }
 });

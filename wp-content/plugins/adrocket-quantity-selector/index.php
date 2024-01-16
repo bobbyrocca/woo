@@ -50,3 +50,43 @@ function selector_enqueue_scripts() {
 	}
 }
 add_action('wp_enqueue_scripts', 'selector_enqueue_scripts');
+
+function adrocket_quantity_selector_radio(): string {
+	global $product;
+
+	// Check if on a product page
+	if ( !is_a( $product, 'WC_Product' ) ) {
+		return 'This shortcode only works on product pages.';
+	}
+
+	$product_id = $product->get_id();
+
+	// Generate radio buttons for quantity
+	$output = '<div id="quantity-selector">';
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$output .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '">';
+		$output .= '<label for="quantity' . $i . '">' . $i . '</label>';
+	}
+	$output .= '</div>';
+
+	// Check if product is variable
+	if ( $product->is_type( 'variable' ) ) {
+		$variable_product = new WC_Product_Variable( $product_id );
+		if ( is_a( $variable_product, 'WC_Product_Variable' ) ) {
+			$output .= '<div id="variant-selectors-container">';
+			$output .= '<select class="individual-variant-selector">';
+			foreach ( $variable_product->get_children() as $child_id ) {
+				$child_product = wc_get_product( $child_id );
+				$output .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
+			}
+			$output .= '</select>';
+			$output .= '</div>';
+		}
+	}
+
+	$output .= '<div id="price-display"></div>';
+
+	return $output;
+}
+
+add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selector_radio' );
