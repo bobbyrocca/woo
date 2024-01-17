@@ -1,0 +1,13 @@
+/* Stile per i radio button */
+.prod-qty-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.prod-qty-item.checked {
+    border-color: #0073e6;
+}
+
+/* Aggiungi altri stili desiderati qui */

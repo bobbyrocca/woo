@@ -9,7 +9,7 @@ function adrocket_quantity_selector(): string {
 	global $product;
 
 	// Verifica se ci si trova in una pagina di prodotto
-	if ( !is_a( $product, 'WC_Product' ) ) {
+	if ( ! is_a( $product, 'WC_Product' ) ) {
 		return 'Questo shortcode funziona solo nelle pagine dei prodotti.';
 	}
 
@@ -17,7 +17,7 @@ function adrocket_quantity_selector(): string {
 
 	// Genera il menu a tendina per la quantità
 	$output = '<select id="quantity-selector">';
-	for ( $i = 1; $i <= 3; $i++ ) {
+	for ( $i = 1; $i <= 3; $i ++ ) {
 		$output .= '<option value="' . $i . '">' . $i . '</option>';
 	}
 	$output .= '</select>';
@@ -30,7 +30,7 @@ function adrocket_quantity_selector(): string {
 			$output .= '<select class="individual-variant-selector">';
 			foreach ( $variable_product->get_children() as $child_id ) {
 				$child_product = wc_get_product( $child_id );
-				$output .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
+				$output        .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
 			}
 			$output .= '</select>';
 			$output .= '</div>';
@@ -48,7 +48,7 @@ function adrocket_quantity_selector_radio(): string {
 	global $product;
 
 	// Check if on a product page
-	if ( !is_a( $product, 'WC_Product' ) ) {
+	if ( ! is_a( $product, 'WC_Product' ) ) {
 		return 'This shortcode only works on product pages.';
 	}
 
@@ -56,10 +56,10 @@ function adrocket_quantity_selector_radio(): string {
 
 	// Generate radio buttons for quantity
 	$output = '<div id="quantity-selector-radio">';
-	for ( $i = 1; $i <= 3; $i++ ) {
-		$checked = ($i === 1) ? ' checked' : ''; // Aggiungi checked per il primo radio button
-		$output .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
-		$output .= '<label for="quantity' . $i . '">' . $i . '</label>';
+	for ( $i = 1; $i <= 3; $i ++ ) {
+		$checked = ( $i === 1 ) ? ' checked' : ''; // Aggiungi checked per il primo radio button
+		$output  .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
+		$output  .= '<label for="quantity' . $i . '">' . $i . '</label>';
 	}
 	$output .= '</div>';
 
@@ -71,7 +71,7 @@ function adrocket_quantity_selector_radio(): string {
 			$output .= '<select class="individual-variant-selector">';
 			foreach ( $variable_product->get_children() as $child_id ) {
 				$child_product = wc_get_product( $child_id );
-				$output .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
+				$output        .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
 			}
 			$output .= '</select>';
 			$output .= '</div>';
@@ -85,9 +85,17 @@ function adrocket_quantity_selector_radio(): string {
 
 add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selector_radio' );
 
+function add_custom_css() {
+	wp_enqueue_style( 'adrocket-quantity-selector-css', plugin_dir_url( __FILE__ ) . 'css/style.css?v=' . microtime() );
+}
+
+add_action( 'wp_enqueue_scripts', 'add_custom_css' );
+
+
 function selector_enqueue_scripts() {
-	if (is_product()) {
-		wp_enqueue_script('adrocket-quantity-selector-js', plugin_dir_url(__FILE__) . 'js/selector.js', array('jquery'), microtime(), true);
+	if ( is_product() ) {
+		wp_enqueue_script( 'adrocket-quantity-selector-js', plugin_dir_url( __FILE__ ) . 'js/selector.js', array( 'jquery' ), microtime(), true );
 	}
 }
-add_action('wp_enqueue_scripts', 'selector_enqueue_scripts');
+
+add_action( 'wp_enqueue_scripts', 'selector_enqueue_scripts' );
