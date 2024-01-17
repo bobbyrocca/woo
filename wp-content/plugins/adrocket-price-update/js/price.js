@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
     console.log("Documento pronto.");
 
-    $(document).on('change', '#quantity-selector, .individual-variant-selector', function () {
+    $(document).on('change', '#quantity-selector', function () {
         let quantity = parseInt($('#quantity-selector').val());
         updatePrice(quantity);
     });
 
-    $(document).on('change', 'input[type=radio][name=quantity], .individual-variant-selector', function () {
+    $(document).on('change', 'input[type=radio][name=quantity], #variant-selectors-container input[type=radio]', function () {
         let quantity = parseInt($('input[type=radio][name=quantity]:checked').val());
         updatePrice(quantity);
     });
@@ -20,8 +20,13 @@ jQuery(document).ready(function ($) {
 
         let product_id = adrocket_ajax_object.product_id;
         let variation_ids = [];
+        /*
+                $('#variant-selectors-container .individual-variant-selector:visible').each(function () {
+                    variation_ids.push($(this).val());
+                });*/
 
-        $('#variant-selectors-container .individual-variant-selector:visible').each(function () {
+        // Raccogli gli ID delle varianti dai pulsanti radio selezionati
+        $('#variant-selectors-container input[type=radio]:checked').each(function () {
             variation_ids.push($(this).val());
         });
 

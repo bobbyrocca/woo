@@ -55,28 +55,39 @@ function adrocket_quantity_selector_radio(): string {
 	$product_id = $product->get_id();
 
 	// Generate radio buttons for quantity
-	$output = '<div id="quantity-selector-radio">';
+	$output = '<div id="quantity-selector-radio" class="radio-flex">';
 	for ( $i = 1; $i <= 3; $i ++ ) {
-		$checked = ( $i === 1 ) ? ' checked' : ''; // Aggiungi checked per il primo radio button
-		$output  .= '<input type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
-		$output  .= '<label for="quantity' . $i . '">' . $i . '</label>';
+		$checked  = ( $i === 1 ) ? ' checked' : ''; // Aggiungi checked per il primo radio button
+		$selected = ( $i === 1 ) ? 'selected' : ''; // Aggiungi checked per il primo radio button
+		$output   .= '<div class="radio-box">';
+		$output   .= '<label for="quantity' . $i . '" class="radio-1 ' . $selected . '"><input class="radio-1" type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '><span class="radio-1">' . $i . '</span></label>';
+		$output   .= '</div>';
 	}
 	$output .= '</div>';
 
-	// Check if product is variable
 	if ( $product->is_type( 'variable' ) ) {
 		$variable_product = new WC_Product_Variable( $product_id );
 		if ( is_a( $variable_product, 'WC_Product_Variable' ) ) {
-			$output .= '<div id="variant-selectors-container">';
-			$output .= '<select class="individual-variant-selector">';
+			$output .= '<div id="variant-selectors-container" class="variants"><div class="flex-1"><div>Product <span class="product-index">1</span></div><div class="variant-radios">';
+			$first  = true; // Indica se siamo al primo elemento del ciclo
+			$i      = 0;
 			foreach ( $variable_product->get_children() as $child_id ) {
 				$child_product = wc_get_product( $child_id );
-				$output        .= '<option value="' . esc_attr( $child_id ) . '">' . $child_product->get_name() . '</option>';
+				$checked       = $first ? 'checked' : ''; // Se è il primo elemento, aggiungi 'checked'
+				$selected      = $first ? 'selected' : ''; // Se è il primo elemento, aggiungi 'checked'
+
+				$image_url = wp_get_attachment_url( $child_product->get_image_id() ); // Ottieni l'URL dell'immagine della variante
+
+				$output .= '<label class="center radio-1 ' . $selected . '" for="variant1_' . $i . '"><input class="radio-1 hide" type="radio" id="variant1_' . $i . '" name="variant[0]" value="' . esc_attr( $child_id ) . '" ' . $checked . '><span class="radio-1"><img class="variant-1" src="' . $image_url . '" alt="' . esc_attr( $child_product->get_name() ) . '">';
+				$output .= implode( ", ", $child_product->get_variation_attributes() ); // Aggiungi altri attributi della variante se necessario
+				$output .= '</span></label>';
+				$first  = false; // Imposta a false dopo il primo ciclo
+				$i ++;
 			}
-			$output .= '</select>';
-			$output .= '</div>';
+			$output .= '</div></div></div>';
 		}
 	}
+
 
 	$output .= '<div id="price-display"></div>';
 
