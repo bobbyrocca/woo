@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
 
         // Salva le selezioni correnti prima di eliminarle
         selectorsContainer.find('.variant-radios').each(function (i) {
-            $(this).find('input[type=radio]').each(function (index) {
+            $(this).find('input[type=radio]').each(function () {
                 if ($(this).is(':checked')) {
                     selected[i] = $(this).val(); // Salva il valore del pulsante radio selezionato
                 }
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
                 let newId = 'variant' + (i + 1) + '_' + index; // Crea un ID unico
                 $(this).attr('id', newId);
                 $(this).attr('name', 'variant[' + i + ']');
-                $(this).parent('label').attr('for', newId); // Aggiorna l'attributo 'for' del label
+                $(this).next('label').attr('for', newId); // Aggiorna l'attributo 'for' del label
 
                 // Seleziona lo stesso valore delle ultime varianti selezionate
                 if (selected[i] && selected[i] === $(this).val()) {
@@ -68,12 +68,12 @@ jQuery(document).ready(function ($) {
         $('#quantity-selector-radio label').removeClass('selected');
 
         // Trova il radio button selezionato e aggiungi la classe 'selected' al suo label parent
-        $('#quantity-selector-radio input[type=radio]:checked').parent().addClass('selected');
+        $('#quantity-selector-radio input[type=radio]:checked').next().addClass('selected');
 
         // Rimuovi la classe 'selected' da tutti i label all'interno di .variant-radios
         $('.variant-radios label').removeClass('selected');
 
         // Trova il radio button selezionato e aggiungi la classe 'selected' al suo label
-        $('.variant-radios input[type=radio]:checked').parent('label').addClass('selected');
+        $('.variant-radios input[type=radio]:checked').next('label').addClass('selected');
     }
 });

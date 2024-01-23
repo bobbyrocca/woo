@@ -19,24 +19,27 @@ label.radio-1 {
     cursor: pointer;
     margin: 0;
     display: flex;
-    align-items: center;
-    flex-direction: row;
+    align-items: flex-start;
     gap: 5px;
     justify-content: flex-start;
     border: 1px solid #dddddd;
     border-radius: 6px;
     background: #ffffff;
-    padding: 5px;
+    padding: 15px;
     width: 100%;
+    flex-direction: column;
+    position: relative;
 }
 
 label.center {
     justify-content: center;
+    opacity: 0.6;
 }
 
 label.radio-1.selected {
     background: #00880007;
     border: 1px solid #008800;
+    opacity: 1;
 }
 
 input.radio-1 {
@@ -74,10 +77,145 @@ div.flex-1 {
 
 img.variant-1 {
     display: block;
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 60px;
+    max-height: 60px;
 }
 
 .hide {
     display: none;
+}
+
+div.label-1 {
+
+}
+
+p.radio-1 {
+    margin: 0;
+    display: flex;
+    gap: 6px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    align-items: center;
+}
+
+p:empty {
+    display: none;
+}
+
+span:empty {
+    display: none;
+}
+
+p.radio-1.right {
+    justify-content: flex-end;
+}
+
+p.radio-1.space {
+    justify-content: space-between;
+}
+
+p.radio-1.absolute {
+    position: absolute;
+    top: -3px;
+    left: 0;
+    right: 0;
+}
+
+p.radio-1.centre {
+    justify-content: center;
+}
+
+del {
+    opacity: 0.6;
+}
+
+div.label-1 {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+span.tag {
+    font-size: 14px;
+    padding: 3px 12px;
+    border-radius: 5px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 600;
+    line-height: 1rem;
+}
+
+span.green {
+    color: #008800;
+    /* border: 1px dashed #008800; */
+    background: #e2f1e2;
+}
+
+span.blue {
+    color: #000088;
+    border: 1px dashed #000088;
+    background: aliceblue;
+}
+
+span.grey {
+    color: #4a4a4a;
+    border: 1px dashed #4a4a4a;
+}
+
+span.grey1 {
+    color: #4a4a4a;
+    background: #f7f7f7;
+}
+
+strong.s1 {
+    font-size: 1.2rem;
+}
+
+span.tag2 {
+    display: block;
+    background: #5eb25e;
+    /* border: 1px solid #008800; */
+    padding: 2px 24px;
+    line-height: 1rem;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+del.s1 {
+    font-size: 1rem;
+}
+
+div.total-box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+span.sales {
+    color: #cc0033;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+del.regular {
+    font-weight:400;
+    color: #99a0a0;
+    font-size: 1.1rem;
+}
+
+div.total-amount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+span.amount-title {
+
 }

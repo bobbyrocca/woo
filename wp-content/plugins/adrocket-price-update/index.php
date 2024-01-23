@@ -14,6 +14,8 @@ function get_updated_price_callback() {
 	$total_regular_price = 0;
 	$total_sale_price    = 0;
 
+	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
+
 	if ( empty( $variation_ids ) ) {
 		$product = wc_get_product( $product_id );
 
@@ -22,25 +24,32 @@ function get_updated_price_callback() {
 			wp_die();
 		}
 
-		// Prezzi basati sulla quantità
-		$price_for_one   = get_post_meta( $product_id, 'qty_based_price_1', true );
-		$price_for_two   = get_post_meta( $product_id, 'qty_based_price_2', true );
-		$price_for_three = get_post_meta( $product_id, 'qty_based_price_3', true );
+		if ( '1' === $bundle_policy ) {
 
-		// Calcola il prezzo in base alla quantità
-		if ( $quantity == 1 && ! empty( $price_for_one ) ) {
-			$sale_price = $price_for_one;
-		} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
-			$sale_price = $price_for_two;
-		} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
-			$sale_price = $price_for_three + $price_for_three * ($quantity - 3) / 3;
-		} else {
-			$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
+			// Prezzi basati sulla quantità
+			$price_for_one   = get_post_meta( $product_id, 'qty_based_price_1', true );
+			$price_for_two   = get_post_meta( $product_id, 'qty_based_price_2', true );
+			$price_for_three = get_post_meta( $product_id, 'qty_based_price_3', true );
+
+			// Calcola il prezzo in base alla quantità
+			if ( $quantity == 1 && ! empty( $price_for_one ) ) {
+				$sale_price = $price_for_one;
+			} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
+				$sale_price = $price_for_two;
+			} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
+				$sale_price = $price_for_three + $price_for_three * ( $quantity - 3 ) / 3;
+			} else {
+				$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
+			}
+
+			// Calcola il prezzo per il prodotto principale
+			$total_regular_price = floatval( $product->get_regular_price() * $quantity );
+			$total_sale_price    = floatval( $sale_price );
+		}else{
+			$total_regular_price = floatval( $product->get_regular_price() * $quantity );
+			$total_sale_price    = floatval( $product->get_sale_price() ?: $product->get_regular_price() );
+			$total_sale_price	= floatval( $total_sale_price * $quantity );
 		}
-
-		// Calcola il prezzo per il prodotto principale
-		$total_regular_price = floatval( $product->get_regular_price() * $quantity );
-		$total_sale_price    = floatval( $sale_price );
 	} else {
 
 		$quantity = count( $variation_ids );
@@ -71,7 +80,7 @@ function get_updated_price_callback() {
 				$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
 			}
 
-			$regular_price = $product->get_regular_price();
+			$regular_price = floatval( $product->get_regular_price() );
 
 			// Calcola il prezzo per ogni variante (considerando una quantità di 1 per variante)
 			$total_regular_price += $regular_price;

@@ -6,45 +6,77 @@
  * Author: Halexo Limited
  */
 
+// Aggiunta del campo dropdown 'bundle_policy'
+function add_bundle_policy_field() {
+	woocommerce_wp_select( array(
+		'id'          => 'bundle_policy',
+		'label'       => 'Politica di bundle:',
+		'options'     => array(
+			'0' => 'Non attiva',
+			'1' => 'Prezzo basato sulla quantità'
+		),
+		'desc_tip'    => true,
+		'description' => 'Seleziona la politica di bundle per questo prodotto.',
+	) );
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'add_bundle_policy_field' );
+
+// Salvataggio del campo 'bundle_policy'
+function save_bundle_policy_field( $post_id ) {
+	if ( isset( $_POST['bundle_policy'] ) ) {
+		update_post_meta( $post_id, 'bundle_policy', $_POST['bundle_policy'] );
+	}
+}
+
+add_action( 'woocommerce_process_product_meta', 'save_bundle_policy_field' );
+
 function add_quantity_based_pricing_fields() {
 
-	woocommerce_wp_text_input( array(
-		'id'                => 'qty_based_price_1',
-		'label'             => 'Prezzo per 1 unità:',
-		'desc_tip'          => 'true',
-		'description'       => 'Imposta il prezzo per 1 unità',
-		'type'              => 'number',
-		'custom_attributes' => array(
-			'step' => 'any',
-			'min'  => '0'
-		)
-	) );
+	// Ottieni il valore corrente di 'bundle_policy'
+	global $post;
+	$bundle_policy = get_post_meta( $post->ID, 'bundle_policy', true );
 
-	// Campo per 2 unità
-	woocommerce_wp_text_input( array(
-		'id'                => 'qty_based_price_2',
-		'label'             => 'Prezzo per 2 unità:',
-		'desc_tip'          => 'true',
-		'description'       => 'Imposta il prezzo per 2 unità',
-		'type'              => 'number',
-		'custom_attributes' => array(
-			'step' => 'any',
-			'min'  => '0'
-		)
-	) );
+	// Mostra i campi solo se 'bundle_policy' è impostato su '1'
+	if ( '1' === $bundle_policy ) {
+		woocommerce_wp_text_input( array(
+			'id'                => 'qty_based_price_1',
+			'label'             => 'Prezzo per 1 unità:',
+			'desc_tip'          => 'true',
+			'description'       => 'Imposta il prezzo per 1 unità',
+			'type'              => 'number',
+			'custom_attributes' => array(
+				'step' => 'any',
+				'min'  => '0'
+			)
+		) );
 
-	// Campo per 3 unità
-	woocommerce_wp_text_input( array(
-		'id'                => 'qty_based_price_3',
-		'label'             => 'Prezzo per 3 unità:',
-		'desc_tip'          => 'true',
-		'description'       => 'Imposta il prezzo per 3 unità',
-		'type'              => 'number',
-		'custom_attributes' => array(
-			'step' => 'any',
-			'min'  => '0'
-		)
-	) );
+		// Campo per 2 unità
+		woocommerce_wp_text_input( array(
+			'id'                => 'qty_based_price_2',
+			'label'             => 'Prezzo per 2 unità:',
+			'desc_tip'          => 'true',
+			'description'       => 'Imposta il prezzo per 2 unità',
+			'type'              => 'number',
+			'custom_attributes' => array(
+				'step' => 'any',
+				'min'  => '0'
+			)
+		) );
+
+		// Campo per 3 unità
+		woocommerce_wp_text_input( array(
+			'id'                => 'qty_based_price_3',
+			'label'             => 'Prezzo per 3 unità:',
+			'desc_tip'          => 'true',
+			'description'       => 'Imposta il prezzo per 3 unità',
+			'type'              => 'number',
+			'custom_attributes' => array(
+				'step' => 'any',
+				'min'  => '0'
+			)
+		) );
+	}
 }
 
 add_action( 'woocommerce_product_options_pricing', 'add_quantity_based_pricing_fields' );
