@@ -8,16 +8,19 @@
 
 // Aggiunta del campo dropdown 'bundle_policy'
 function add_bundle_policy_field() {
+	echo '<div class="options_group">';
 	woocommerce_wp_select( array(
 		'id'          => 'bundle_policy',
 		'label'       => 'Politica di bundle:',
 		'options'     => array(
 			'0' => 'Non attiva',
-			'1' => 'Prezzo basato sulla quantità'
+			'1' => 'Prezzo basato sulla quantità',
+			'2' => 'Prezzo basato sulla varianti'
 		),
 		'desc_tip'    => true,
 		'description' => 'Seleziona la politica di bundle per questo prodotto.',
 	) );
+	echo '</div>';
 }
 
 add_action( 'woocommerce_product_options_general_product_data', 'add_bundle_policy_field' );
@@ -82,21 +85,92 @@ function add_quantity_based_pricing_fields() {
 add_action( 'woocommerce_product_options_pricing', 'add_quantity_based_pricing_fields' );
 
 function save_quantity_based_pricing_fields( $post_id ) {
-	// Salva i dati personalizzati
-	if ( isset( $_POST['qty_based_price_1'] ) ) {
-		update_post_meta( $post_id, 'qty_based_price_1', $_POST['qty_based_price_1'] );
+
+	$logger  = wc_get_logger();
+	$context = array( 'source' => 'save_quantity_based_pricing_fields' );
+
+	$logger->info( '----------------------------------------', $context );
+
+	$logger->info( 'Inizio salvataggio campi per il prodotto ID: ' . $post_id, $context );
+
+	$product = wc_get_product( $post_id );
+
+	// log the POST
+
+	$logger->info( 'POST: ' . print_r( $_POST, true ), $context );
+
+	if ( $product && $product->is_type( 'variation' ) ) {
+		$logger->info( 'Il prodotto è una variante', $context );
+		$parent_id     = $product->get_parent_id();
+		$bundle_policy = get_post_meta( $parent_id, 'bundle_policy', true );
+
+		if ('1' === $bundle_policy) {
+			$parent_product = wc_get_product($parent_id);
+
+			$logger->info( 'Il prodotto genitore è ID: ' . $parent_id, $context );
+
+			$children = $parent_product->get_children();
+
+			// log $children
+			$logger->info( 'children: ' . implode( ', ', $children ), $context );
+
+			// read $_POST['qty_based_price_1'] from $_POST['qty_based_price_1_0'] or $_POST['qty_based_price_1_1'] or $_POST['qty_based_price_1_2']
+
+			foreach ($_POST as $key => $value) {
+				// Utilizza una regular expression per trovare il suffisso numerico
+				if (preg_match('/^qty_based_price_(\d+)(?:_\d+)?$/', $key, $matches)) {
+					$index = $matches[1]; // Estrai l'indice numerico
+					unset($_POST[$key]); // Rimuovi la chiave originale
+					$_POST["qty_based_price_$index"] = $value; // Aggiungi la chiave con il nome pulito
+				}
+			}
+
+			$logger->info( 'POST: ' . print_r( $_POST, true ), $context );
+
+			foreach ($children as $child_id) {
+				$logger->info( 'child_id: ' . $child_id, $context );
+				if ( isset( $_POST['qty_based_price_1'] ) ) {
+					$logger->info( 'child_id: ' . $child_id . ' qty_based_price_1: ' . $_POST['qty_based_price_1'], $context );
+					update_post_meta($child_id, 'qty_based_price_1', $_POST['qty_based_price_1']);
+				}
+				if ( isset( $_POST['qty_based_price_2'] ) ) {
+					$logger->info( 'child_id: ' . $child_id . ' qty_based_price_2: ' . $_POST['qty_based_price_2'], $context );
+					update_post_meta($child_id, 'qty_based_price_2', $_POST['qty_based_price_2']);
+				}
+				if ( isset( $_POST['qty_based_price_3'] ) ) {
+					$logger->info( 'child_id: ' . $child_id . ' qty_based_price_3: ' . $_POST['qty_based_price_3'], $context );
+					update_post_meta($child_id, 'qty_based_price_3', $_POST['qty_based_price_3']);
+				}
+			}
+
+			$logger->info( 'Prezzi aggiornati applicati a tutte le varianti del prodotto genitore ID ' . $parent_id, $context );
+		}
+	} else {
+		$logger->info( 'Il prodotto non è una variante', $context );
+		$bundle_policy = get_post_meta( $post_id, 'bundle_policy', true );
+
+		// Salva i dati personalizzati
+		if ( isset( $_POST['qty_based_price_1'] ) ) {
+			$logger->info( 'qty_based_price_1: ' . $_POST['qty_based_price_1'], $context );
+			update_post_meta( $post_id, 'qty_based_price_1', $_POST['qty_based_price_1'] );
+		}
+		// Ripeti per quantità 2
+		if ( isset( $_POST['qty_based_price_2'] ) ) {
+			$logger->info( 'qty_based_price_2: ' . $_POST['qty_based_price_2'], $context );
+			update_post_meta( $post_id, 'qty_based_price_2', $_POST['qty_based_price_2'] );
+		}
+		// Ripeti per quantità 3
+		if ( isset( $_POST['qty_based_price_3'] ) ) {
+			$logger->info( 'qty_based_price_3: ' . $_POST['qty_based_price_3'], $context );
+			update_post_meta( $post_id, 'qty_based_price_3', $_POST['qty_based_price_3'] );
+		}
 	}
-	// Ripeti per quantità 2
-	if ( isset( $_POST['qty_based_price_2'] ) ) {
-		update_post_meta( $post_id, 'qty_based_price_2', $_POST['qty_based_price_2'] );
-	}
-	// Ripeti per quantità 3
-	if ( isset( $_POST['qty_based_price_3'] ) ) {
-		update_post_meta( $post_id, 'qty_based_price_3', $_POST['qty_based_price_3'] );
-	}
+
+	$logger->info( 'bundle_policy: ' . $bundle_policy, $context );
 }
 
 add_action( 'woocommerce_process_product_meta', 'save_quantity_based_pricing_fields' );
+add_action( 'woocommerce_save_product_variation', 'save_quantity_based_pricing_fields' );
 
 function apply_custom_pricing( $cart ) {
 	foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {

@@ -1,29 +1,36 @@
 jQuery(document).ready(function ($) {
 
     let selected = []; // Salva le selezioni correnti
+    let variant_sel = $('#variant-selectors-container');
 
-    let originalVariantGroups = $('#variant-selectors-container').children('div').clone();
+    let originalVariantGroups = variant_sel.children('div').clone();
 
-    // Handler per i pulsanti radio
+    // Se la quantità viene cambiata tramite radio buttons, aggiorna i pulsanti radio
     $('input[type=radio][name=quantity]').on('change', function () {
-        updateVariantSelectors(parseInt($(this).val()));
+        console.log("Cambio valore pulsante radio")
+        updateVariantSelectors(parseInt($(this).val()),variant_sel);
         updateRadioButtons();
     });
 
-    $('#variant-selectors-container').on('change', 'input[type=radio]', function () {
-        console.log("Cambio valore pulsante radio");
+    // Se la quantità viene cambiata tramite il selettore, aggiorna i pulsanti radio
+
+    $('#quantity-selector').on('change', function () {
+        console.log("Cambio valore selettore quantità")
+        updateVariantSelectors(parseInt($(this).val()),variant_sel);
+        updateRadioButtons();
+    });
+
+    variant_sel.on('change', 'input[type=radio]', function () {
         updateRadioButtons();
     });
 
     updateRadioButtons();
 
-    function updateVariantSelectors(selectedQuantity) {
+    function updateVariantSelectors(selectedQuantity,selectorsContainer) {
         if (isNaN(selectedQuantity)) {
             // Gestisci il caso in cui selectedQuantity non sia un numero
             return;
         }
-
-        let selectorsContainer = $('#variant-selectors-container');
 
         // Salva le selezioni correnti prima di eliminarle
         selectorsContainer.find('.variant-radios').each(function (i) {
@@ -70,7 +77,7 @@ jQuery(document).ready(function ($) {
         // Trova il radio button selezionato e aggiungi la classe 'selected' al suo label parent
         $('#quantity-selector-radio input[type=radio]:checked').next().addClass('selected');
 
-        // Rimuovi la classe 'selected' da tutti i label all'interno di .variant-radios
+        // Rimuovi la classe 'selected' da tutti i label all'interno di variant-radios
         $('.variant-radios label').removeClass('selected');
 
         // Trova il radio button selezionato e aggiungi la classe 'selected' al suo label

@@ -62,29 +62,33 @@ function get_updated_price_callback() {
 			}
 
 			$id_to_use = $variation_id ?: $product_id;
+			if ( '1' === $bundle_policy ) {
+				// Prezzi basati sulla quantità per la variante
+				$price_for_one   = get_post_meta( $id_to_use, 'qty_based_price_1', true );
+				$price_for_two   = get_post_meta( $id_to_use, 'qty_based_price_2', true );
+				$price_for_three = get_post_meta( $id_to_use, 'qty_based_price_3', true );
 
-			// Prezzi basati sulla quantità per la variante
-			$price_for_one   = get_post_meta( $id_to_use, 'qty_based_price_1', true );
-			$price_for_two   = get_post_meta( $id_to_use, 'qty_based_price_2', true );
-			$price_for_three = get_post_meta( $id_to_use, 'qty_based_price_3', true );
+				// Calcola il prezzo in base alla quantità
 
-			// Calcola il prezzo in base alla quantità
+				if ( $quantity == 1 && ! empty( $price_for_one ) ) {
+					$sale_price = $price_for_one;
+				} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
+					$sale_price = $price_for_two;
+				} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
+					$sale_price = $price_for_three + $price_for_three * ( $quantity - 3 ) / 3;
+				} else {
+					$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
+				}
 
-			if ( $quantity == 1 && ! empty( $price_for_one ) ) {
-				$sale_price = $price_for_one;
-			} elseif ( $quantity == 2 && ! empty( $price_for_two ) ) {
-				$sale_price = $price_for_two;
-			} elseif ( $quantity >= 3 && ! empty( $price_for_three ) ) {
-				$sale_price = $price_for_three + $price_for_three * ($quantity - 3) / 3;
-			} else {
-				$sale_price = $product->get_sale_price() ?: $product->get_regular_price();
+				$regular_price = floatval( $product->get_regular_price() );
+
+				// Calcola il prezzo per ogni variante (considerando una quantità di 1 per variante)
+				$total_regular_price += $regular_price;
+				$total_sale_price    += $sale_price / $quantity;
+			}else{
+				$total_regular_price += floatval( $product->get_regular_price() );
+				$total_sale_price    += floatval( $product->get_sale_price() ?: $product->get_regular_price() );
 			}
-
-			$regular_price = floatval( $product->get_regular_price() );
-
-			// Calcola il prezzo per ogni variante (considerando una quantità di 1 per variante)
-			$total_regular_price += $regular_price;
-			$total_sale_price    += $sale_price / $quantity;
 		}
 
 		$total_regular_price = floatval( $total_regular_price );
@@ -93,6 +97,7 @@ function get_updated_price_callback() {
 
 	// Costruisci e invia la risposta JSON
 	$response = array(
+		'bundle_policy'       => floatval($bundle_policy),
 		'wp_sale_price'       => wc_price( $total_sale_price ),
 		'wp_regular_price'    => wc_price( $total_regular_price ),
 		'sale_price'          => $total_sale_price,
@@ -110,6 +115,37 @@ function get_updated_price_callback() {
 
 add_action( 'wp_ajax_get_updated_price', 'get_updated_price_callback' );
 add_action( 'wp_ajax_nopriv_get_updated_price', 'get_updated_price_callback' );
+
+/**
+ * @throws Exception
+ */
+function adrocket_add_to_cart_callback() {
+	$product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+	$quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+	$variation_ids = $_POST['variation_ids'] ?? array();
+
+	if(!empty($variation_ids)){
+		foreach($variation_ids as $variation_id){
+			WC()->cart->add_to_cart($variation_id, 1);
+		}
+	}else{
+		WC()->cart->add_to_cart($product_id, $quantity);
+	}
+
+	$response = array(
+		'product_id' => $product_id,
+		'quantity' => $quantity,
+		'variation_ids' => $variation_ids,
+		'message' => 'Prodotti aggiunti al carrello',
+		'cart_url'   => wc_get_cart_url()
+	);
+
+	echo json_encode($response);
+	wp_die();
+}
+
+add_action('wp_ajax_adrocket_add_to_cart', 'adrocket_add_to_cart_callback');
+add_action('wp_ajax_nopriv_adrocket_add_to_cart', 'adrocket_add_to_cart_callback');
 
 function adrocket_enqueue_scripts() {
 	// Verifica se la funzione is_product esiste e se la pagina corrente è una pagina di prodotto

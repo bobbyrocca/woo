@@ -25,7 +25,7 @@ label.radio-1 {
     border: 1px solid #dddddd;
     border-radius: 6px;
     background: #ffffff;
-    padding: 15px;
+    padding: 7px;
     width: 100%;
     flex-direction: column;
     position: relative;
@@ -34,6 +34,7 @@ label.radio-1 {
 label.center {
     justify-content: center;
     opacity: 0.6;
+    align-items: center;
 }
 
 label.radio-1.selected {
@@ -79,6 +80,7 @@ img.variant-1 {
     display: block;
     max-width: 60px;
     max-height: 60px;
+    border-radius: 6px;
 }
 
 .hide {
@@ -194,7 +196,7 @@ del.s1 {
 div.total-box {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 span.sales {
@@ -217,5 +219,36 @@ div.total-amount {
 }
 
 span.amount-title {
+
+}
+
+span.caption-1 {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+div.add-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    justify-content: center;
+    background: #2196F3;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    border-bottom: 4px solid #1f5885;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+div.add-1:hover {
+    opacity: 0.8;
+    transition: 1s;
+}
+
+span.add-1 {
 
 }
