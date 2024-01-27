@@ -1,0 +1,27 @@
+div.sale-badge-box {
+    background-color: #cc0033;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin: 10px;
+    z-index: 99;
+}
+
+span.sale-badge {
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+span.sale-badge-bigger {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.top {
+    top: 0;
+}
