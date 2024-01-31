@@ -6,6 +6,9 @@
  * Author: Halexo Limited
  */
 
+// Prevenire accesso diretto al file.
+defined( 'ABSPATH' ) || exit;
+
 // Aggiunta del campo dropdown 'bundle_policy'
 function add_bundle_policy_field() {
 	echo '<div class="options_group">';

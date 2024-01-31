@@ -6,6 +6,9 @@
  * Author: Halexo Limited
  */
 
+// Prevenire accesso diretto al file.
+defined( 'ABSPATH' ) || exit;
+
 function adrocket_quantity_selectors(): string {
 	global $product;
 
@@ -15,6 +18,8 @@ function adrocket_quantity_selectors(): string {
 	}
 
 	$product_id = $product->get_id();
+
+	echo '<script>console.log("sel. product: ' . $product->get_id() . '");</script>';
 
 	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
 
@@ -117,12 +122,16 @@ function adrocket_quantity_selectors(): string {
 
 add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selectors' );
 
+add_action('woocommerce_before_add_to_cart_form', function() {
+	echo adrocket_quantity_selectors();
+});
+
 function add_custom_css() {
+
 	wp_enqueue_style( 'adrocket-quantity-selector-css', plugin_dir_url( __FILE__ ) . 'css/style.css?v=' . microtime() );
 }
 
 add_action( 'wp_enqueue_scripts', 'add_custom_css' );
-
 
 function selector_enqueue_scripts() {
 	if ( is_product() ) {
@@ -169,7 +178,7 @@ function create_bundles( $product_id, $product, $is_variable = false ): string {
 		$checked  = ( $i === 1 ) ? ' checked' : ''; // Aggiungi checked per il primo radio button
 		$selected = ( $i === 1 ) ? 'selected' : ''; // Aggiungi checked per il primo radio button
 		$output   .= '<div class="radio-box">';
-		$output   .= '<input class="radio-1" type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
+		$output   .= '<input class="radio-1 hide" type="radio" id="quantity' . $i . '" name="quantity" value="' . $i . '"' . $checked . '>';
 		$output   .= '<label for="quantity' . $i . '" class="radio-1 ' . $selected . '">';
 		if ( $claim != '' ) {
 			$output .= '<div class="label-1">';

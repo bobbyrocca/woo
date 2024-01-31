@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
 
     // Se la quantità viene cambiata tramite radio buttons, aggiorna i pulsanti radio
     $('input[type=radio][name=quantity]').on('change', function () {
-        console.log("Cambio valore pulsante radio")
+        console.log("Cambio valore pulsante radio (selector.js)")
         updateVariantSelectors(parseInt($(this).val()),variant_sel);
         updateRadioButtons();
     });

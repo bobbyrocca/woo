@@ -975,7 +975,7 @@ function is_dynamic_sidebar() {
 function is_active_sidebar( $index ) {
 	$index             = ( is_int( $index ) ) ? "sidebar-$index" : sanitize_title( $index );
 	$sidebars_widgets  = wp_get_sidebars_widgets();
-	$is_active_sidebar = ! empty( $sidebars_widgets[ $index ] );
+	$is_active_sidebar = false;
 
 	/**
 	 * Filters whether a dynamic sidebar is considered "active".

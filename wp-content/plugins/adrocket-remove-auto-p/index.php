@@ -6,6 +6,9 @@
  * Author: Halexo Limited
  */
 
+// Prevenire accesso diretto al file.
+defined( 'ABSPATH' ) || exit;
+
 add_action('init', function() {
 	remove_filter('the_content', 'wpautop');
 	remove_filter('the_excerpt', 'wpautop');

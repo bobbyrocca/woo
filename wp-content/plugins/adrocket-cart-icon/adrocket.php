@@ -6,6 +6,9 @@
  * Author: Halexo Limited
  */
 
+// Prevenire accesso diretto al file.
+defined( 'ABSPATH' ) || exit;
+
 function custom_cart_link_shortcode(): string {
 	$cart_count = WC()->cart->get_cart_contents_count();
 	$cart_url   = wc_get_cart_url();

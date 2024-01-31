@@ -156,3 +156,4 @@ function adrocket_sales_badge_css() {
 }
 
 add_action( 'wp_enqueue_scripts', 'adrocket_sales_badge_css' );
+

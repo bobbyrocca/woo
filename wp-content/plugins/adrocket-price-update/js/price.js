@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
     });
 
     $(document).on('change', 'input[type=radio][name=quantity], #variant-selectors-container input[type=radio]', function () {
-        console.log("Cambio valore pulsante radio")
+        console.log("Cambio valore pulsante radio (price.js)")
         let quantity = parseInt($('input[type=radio][name=quantity]:checked').val());
 
         if (isNaN(quantity)) {
