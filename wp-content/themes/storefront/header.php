@@ -61,7 +61,7 @@
 	?>
 
 	<div id="content" class="site-content" tabindex="-1">
-		<div class="col-full">
+		<div class="col-full column">
 
 		<?php
 		do_action( 'storefront_content_top' );
