@@ -26,6 +26,13 @@ jQuery(document).ready(function ($) {
 
     updateRadioButtons();
 
+    $(document).on('click', '#adrocket-add-to-cart', function () {
+        // remove class hid to show the loader
+        $('#blocker').removeClass('hide');
+    });
+
+    resetForm();
+
     function updateVariantSelectors(selectedQuantity,selectorsContainer) {
         if (isNaN(selectedQuantity)) {
             // Gestisci il caso in cui selectedQuantity non sia un numero
@@ -48,8 +55,6 @@ jQuery(document).ready(function ($) {
             let clonedGroups = originalVariantGroups.clone(); // Clona i gruppi di varianti originali per questa quantità
 
             let productNumber = i + 1; // Numero progressivo del prodotto
-
-            console.log("Testo all'interno di <div class='flex-1'>:", clonedGroups.find('.product-index').text());
 
             // Modifica solo il testo del numero all'interno di <div class="flex-1">
             clonedGroups.find('.product-index').text(productNumber);
@@ -82,5 +87,20 @@ jQuery(document).ready(function ($) {
 
         // Trova il radio button selezionato e aggiungi la classe 'selected' al suo label
         $('.variant-radios input[type=radio]:checked').next('label').addClass('selected');
+    }
+
+    function resetForm() {
+        // Trova la prima opzione disponibile per la quantità e impostala
+        let firstQtyOption = $('#quantity-selector option').first().val();
+        $('#quantity-selector').val(firstQtyOption).change();
+
+        // Seleziona la prima variante disponibile per ogni gruppo di varianti
+        $('#variant-radios').each(function () {
+            $(this).find('input[type=radio]').first().prop('checked', true);
+        });
+
+        // Aggiorna i pulsanti radio e altri elementi dell'interfaccia utente
+        updateRadioButtons();
+        updateVariantSelectors(parseInt(firstQtyOption), $('#variant-selectors-container'));
     }
 });

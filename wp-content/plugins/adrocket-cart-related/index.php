@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 function adrocket_cart_related_enqueue_scripts() {
 	if ( is_product() ) {
-		wp_enqueue_script( 'adrocket-cart-manager-js', plugin_dir_url( __FILE__ ) . 'js/cart.js', array( 'jquery' ), microtime(), true );
+		wp_enqueue_script( 'adrocket-cart-manager-js', plugin_dir_url( __FILE__ ) . 'js/related.js', array( 'jquery' ), microtime(), true );
 	}
 }
 

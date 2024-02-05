@@ -19,13 +19,12 @@ function adrocket_quantity_selectors(): string {
 
 	$product_id = $product->get_id();
 
-	echo '<script>console.log("sel. product: ' . $product->get_id() . '");</script>';
-
 	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
-
+	$output = '<div class="adrocket-block">';
+	$output .= '<div id="blocker" class="blocker hide"><div class="spinner"></div></div>';
 	if ( '1' == $bundle_policy ) {
 
-		$output = '<div id="quantity-selector-radio" class="radio-flex">';
+		$output .= '<div id="quantity-selector-radio" class="radio-flex">';
 		if ( $product->is_type( 'variable' ) ) {
 
 			$child_id              = $product->get_children()[0]; // Ottieni l'ID del primo figlio
@@ -59,7 +58,7 @@ function adrocket_quantity_selectors(): string {
 
 	} else {
 		// Genera il menu a tendina per la quantità
-		$output = '<select id="quantity-selector">';
+		$output .= '<select id="quantity-selector">';
 		for ( $i = 1; $i <= 3; $i ++ ) {
 			$output .= '<option value="' . $i . '">' . $i . '</option>';
 		}
@@ -79,7 +78,7 @@ function adrocket_quantity_selectors(): string {
 	if ( $product->is_type( 'variable' ) ) {
 		$variable_product = new WC_Product_Variable( $product_id );
 		if ( is_a( $variable_product, 'WC_Product_Variable' ) ) {
-			$output .= '<div id="variant-selectors-container" class="variants"><div class="flex-1"><div>Product <span class="product-index">1</span></div><div class="variant-radios">';
+			$output .= '<div id="variant-selectors-container" class="variants"><div class="flex-1"><div>Product <span class="product-index">1</span></div><div id="variant-radios" class="variant-radios">';
 			$first  = true; // Indica se siamo al primo elemento del ciclo
 			$i      = 0;
 			foreach ( $variable_product->get_children() as $child_id ) {
@@ -115,8 +114,8 @@ function adrocket_quantity_selectors(): string {
 	// Parte finale della tua funzione adrocket_quantity_selectors
 
 // Aggiungi un pulsante personalizzato "Aggiungi al carrello"
-	$output .= '<div id="adrocket-add-to-cart" class="add-1" data-product-id="' . esc_attr($product_id) . '"><span class="add-1">Order Now</span><span class="my-custom-cart-icon"><svg xmlns="http://www.w3.org/2000/svg" width="21" viewBox="0 0 512 512"><!--!Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM289 361l88-88c9.4-9.4 9.4-24.6 0-33.9l-88-88c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l47 47L152 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l150.1 0-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0z"/></svg></span></div>';
-
+	$output .= '<div id="adrocket-add-to-cart" class="add-1 enabled" data-enabled="1" data-product-id="' . esc_attr($product_id) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
+	$output .= '</div>';
 	return $output;
 }
 
