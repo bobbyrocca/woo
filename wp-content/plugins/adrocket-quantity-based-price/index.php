@@ -300,3 +300,95 @@ function calc_price_bundle_1( $default_regular_price, $default_sale_price, $pric
 	return floatval( $sale_price / $quantity );
 
 }
+
+// ...
+
+// Aggiunta del campo dropdown 'shipping_policy'
+function add_shipping_policy_field() {
+	echo '<div class="options_group">';
+	woocommerce_wp_select( array(
+		'id'          => 'shipping_policy',
+		'label'       => 'Politica di spedizione:',
+		'options'     => array(
+			'0' => 'Nessuna',
+			'1' => 'Basata sulla soglia di prezzo',
+			'2' => 'Basata sulla quantità'
+		),
+		'desc_tip'    => true,
+		'description' => 'Seleziona la politica di spedizione per questo prodotto.',
+	) );
+	echo '</div>';
+
+	// Campo per la tariffa di spedizione standard
+	woocommerce_wp_text_input( array(
+		'id'                => 'standard_shipping_fee',
+		'label'             => 'Tariffa di spedizione standard:',
+		'type'              => 'number',
+		'custom_attributes' => array(
+			'step' => 'any',
+			'min'  => '0'
+		),
+		'desc_tip'          => true,
+		'description'       => 'Imposta la tariffa di spedizione standard per questo prodotto.',
+	) );
+
+	// Campo per la tariffa di spedizione premium
+	woocommerce_wp_text_input( array(
+		'id'                => 'premium_shipping_fee',
+		'label'             => 'Tariffa di spedizione premium:',
+		'type'              => 'number',
+		'custom_attributes' => array(
+			'step' => 'any',
+			'min'  => '0'
+		),
+		'desc_tip'          => true,
+		'description'       => 'Imposta la tariffa di spedizione premium per questo prodotto.',
+	) );
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'add_shipping_policy_field' );
+
+// Salvataggio dei campi 'shipping_policy', 'standard_shipping_fee' e 'premium_shipping_fee'
+function save_shipping_policy_fields( $post_id ) {
+	if ( isset( $_POST['shipping_policy'] ) ) {
+		update_post_meta( $post_id, 'shipping_policy', $_POST['shipping_policy'] );
+	}
+	if ( isset( $_POST['standard_shipping_fee'] ) ) {
+		update_post_meta( $post_id, 'standard_shipping_fee', $_POST['standard_shipping_fee'] );
+	}
+	if ( isset( $_POST['premium_shipping_fee'] ) ) {
+		update_post_meta( $post_id, 'premium_shipping_fee', $_POST['premium_shipping_fee'] );
+	}
+}
+
+add_action( 'woocommerce_process_product_meta', 'save_shipping_policy_fields' );
+
+// ...
+
+// Aggiunta del campo dropdown 'availability'
+function add_availability_field() {
+	echo '<div class="options_group">';
+	woocommerce_wp_select( array(
+		'id'          => 'availability',
+		'label'       => 'Disponibilità:',
+		'options'     => array(
+			'0' => 'Nessuna',
+			'1' => 'Disponibile',
+			'2' => 'Critica'
+		),
+		'desc_tip'    => true,
+		'description' => 'Seleziona lo stato di disponibilità per questo prodotto.',
+	) );
+	echo '</div>';
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'add_availability_field' );
+
+// Salvataggio del campo 'availability'
+function save_availability_field( $post_id ) {
+	if ( isset( $_POST['availability'] ) ) {
+		update_post_meta( $post_id, 'availability', $_POST['availability'] );
+	}
+}
+
+add_action( 'woocommerce_process_product_meta', 'save_availability_field' );
