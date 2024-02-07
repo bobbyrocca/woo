@@ -2244,6 +2244,8 @@ div.product-item {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    position: relative;
+    margin-bottom: 12px;
 }
 
 div.product-image {

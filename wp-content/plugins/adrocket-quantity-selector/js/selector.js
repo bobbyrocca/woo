@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
 
     $(document).on('click', '#adrocket-add-to-cart', function () {
         // remove class hid to show the loader
-        $('#blocker').removeClass('hide');
+        $('.blocker').removeClass('hide');
     });
 
     resetForm();
