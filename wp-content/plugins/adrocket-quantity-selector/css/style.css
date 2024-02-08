@@ -199,7 +199,7 @@ div.total-box {
     flex-direction: row;
     align-items: flex-end;
     gap: 6px;
-    margin: 15px 0;
+    /* margin: 15px 0; */
 }
 
 span.sales {
@@ -247,6 +247,15 @@ div.add-1 {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
+div.add-1.green {
+    background: #22971b;
+    color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 8px;
+    border-bottom: 4px solid #1a7116;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
 div.add-1.enabled {
     cursor: pointer;
 }
@@ -266,6 +275,9 @@ span.add-1 {
 
 .adrocket-block {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .blocker {
@@ -308,4 +320,39 @@ span.cart-shopping-solid {
     height: 20px;
     background-size: cover;
     background: url("../images/icons/cart-shopping-solid.svg") center center no-repeat;
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 0 12px;
+    border-radius: 5px;
+}
+
+.spia {
+    height: 20px;
+    width: 20px;
+    background-color: #e87c23;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #e87c23;
+    margin-right: 10px;
+    border: 2px solid white;
+}
+
+.spia.available {
+    background-color: #00ff00;
+    box-shadow: 0 0 8px #00ff00;
+}
+
+.testo {
+    font-size: 16px;
+}
+
+.testo.available {
+    color: #39af39;
+}
+
+.testo.blue {
+    color: #2196F3;
 }

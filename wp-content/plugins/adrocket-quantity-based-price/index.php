@@ -392,3 +392,37 @@ function save_availability_field( $post_id ) {
 }
 
 add_action( 'woocommerce_process_product_meta', 'save_availability_field' );
+
+// ...
+
+// Aggiunta del campo dropdown 'shipping_days'
+function add_shipping_days_field() {
+	echo '<div class="options_group">';
+	woocommerce_wp_select( array(
+		'id'          => 'shipping_days',
+		'label'       => 'Giorni di consegna:',
+		'options'     => array(
+			'0' => 'Standard (3 giorni)',
+			'1' => 'Un giorno',
+			'2' => 'Due giorni',
+			'3' => 'Tre giorni',
+			'4' => 'Quattro giorni',
+			'5' => 'Cinque giorni',
+			'6' => 'Sei giorni'
+		),
+		'desc_tip'    => true,
+		'description' => 'Seleziona il numero di giorni lavorativi per la consegna di questo prodotto.',
+	) );
+	echo '</div>';
+}
+
+add_action( 'woocommerce_product_options_general_product_data', 'add_shipping_days_field' );
+
+// Salvataggio del campo 'shipping_days'
+function save_shipping_days_field( $post_id ) {
+	if ( isset( $_POST['shipping_days'] ) ) {
+		update_post_meta( $post_id, 'shipping_days', $_POST['shipping_days'] );
+	}
+}
+
+add_action( 'woocommerce_process_product_meta', 'save_shipping_days_field' );

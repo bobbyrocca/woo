@@ -20,8 +20,9 @@ function adrocket_quantity_selectors(): string {
 	$product_id = $product->get_id();
 
 	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
-	$output = '<div class="adrocket-block">';
-	$output .= '<div id="blocker" class="blocker hide"><div class="spinner"></div></div>';
+	$output        = '<div class="adrocket-block">';
+	$output .= '<div><span class="testo">Consegna prevista entro <strong class="testo blue"> ' . calcola_giorno_consegna( 2 ) . ' </strong></span></div>';
+	$output        .= '<div id="blocker" class="blocker hide"><div class="spinner"></div></div>';
 	if ( '1' == $bundle_policy ) {
 
 		$output .= '<div id="quantity-selector-radio" class="radio-flex">';
@@ -106,6 +107,11 @@ function adrocket_quantity_selectors(): string {
 		$default_regular_price = '';
 	}
 
+	$output .= '    <div class="status-container">
+        <div class="spia available"></div>
+        <span class="testo available"><strong>Disponibile</strong> e pronto per la spedizione</span>
+    </div>';
+
 	$output .= '<div id="total-box" class="total-box"><span class="amount-title">Total: </span>';
 	$output .= '<div class="total-amount"><span id="sales-price" class="sales">' . wc_price( $default_sales_price ) . '</span>';
 	$output .= '<del id="regular-price" class="regular">' . $default_regular_price . '</del></div>';
@@ -114,16 +120,17 @@ function adrocket_quantity_selectors(): string {
 	// Parte finale della tua funzione adrocket_quantity_selectors
 
 // Aggiungi un pulsante personalizzato "Aggiungi al carrello"
-	$output .= '<div id="adrocket-add-to-cart" class="add-1 enabled" data-enabled="1" data-product-id="' . esc_attr($product_id) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
+	$output .= '<div id="adrocket-add-to-cart" class="add-1 green enabled" data-enabled="1" data-product-id="' . esc_attr( $product_id ) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
 	$output .= '</div>';
+
 	return $output;
 }
 
 add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selectors' );
 
-add_action('woocommerce_before_add_to_cart_form', function() {
+add_action( 'woocommerce_before_add_to_cart_form', function () {
 	echo adrocket_quantity_selectors();
-});
+} );
 
 function add_custom_css() {
 
@@ -204,4 +211,46 @@ function create_bundles( $product_id, $product, $is_variable = false ): string {
 	}
 
 	return $output;
+}
+
+function calcola_giorno_consegna( $shipping_days ): string {
+	date_default_timezone_set( 'Europe/Rome' ); // Imposta il fuso orario su +1 (Roma)
+
+	$shipping_days = (int) $shipping_days - 1; // Sottrai 1 per ottenere il giorno di consegna
+
+	$now                 = new DateTime(); // Data e ora corrente
+	$current_hour        = $now->format( 'H' ); // Ora corrente
+	$current_day_of_week = $now->format( 'N' ); // Giorno della settimana (1 = Lunedì, ..., 7 = Domenica)
+
+	// Se l'ordine è ricevuto dopo le 13:00, sposta la data al giorno successivo
+	if ( $current_hour >= 13 ) {
+		$now->modify( '+1 day' );
+		$current_day_of_week = $now->format( 'N' ); // Aggiorna il giorno della settimana
+
+		// Se è venerdì dopo le 13:00, sposta al lunedì successivo
+		if ( $current_day_of_week == 5 ) { // 5 = Venerdì
+			$now->modify( 'next Monday' );
+		}
+	}
+
+	// Aggiungi due giorni di spedizione
+	$now->modify( '+' . $shipping_days . ' days' );
+
+	// Controlla se ci sono weekend nel mezzo e aggiusta di conseguenza
+	for ( $i = 0; $i < $shipping_days; $i ++ ) {
+		if ( $now->format( 'N' ) >= 6 ) { // 6 = Sabato, 7 = Domenica
+			$now->modify( 'next Monday' );
+		}
+	}
+
+	// Array dei nomi dei giorni della settimana e dei mesi in italiano
+	$giorni_settimana = array('Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica');
+	$mesi = array('', 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre');
+
+	// Formatta la data nel formato desiderato in italiano
+	$day_of_week = $giorni_settimana[$now->format('N') - 1]; // Ottiene il nome del giorno della settimana in italiano
+	$month = $mesi[intval($now->format('n'))]; // Ottiene il nome del mese in italiano
+	// Restituisce il giorno della settimana, la data completa e l'anno
+
+	return $day_of_week . ', ' . $now->format('d') . ' ' . $month; // R
 }
