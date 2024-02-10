@@ -1,7 +1,7 @@
 /wp-config.php
 /.htaccess
 /.idea/*
-/wp-content/uploads/2023/
 /vendor/
 /wp-content/uploads/wc-logs/*
 /wp-content/debug.log
+/wp-content/uploads/*
