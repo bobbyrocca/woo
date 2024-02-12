@@ -2397,3 +2397,54 @@ div.price-button {
     display: block;
     margin: 0 !important;
 }
+
+.product-reviews-summary {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.summary-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expanded-summary-avg {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.summary-text {
+    font-size: 16px;
+    color: #333;
+}
+
+.loox-icon.star {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+.reviews-dist {
+    margin-top: 15px;
+}
+
+.loox-progress {
+    background: #e6e6e6;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.loox-progress-value {
+    background: #FFD700;
+    height: 100%;
+}
+
+.reviews-num {
+    font-size: 14px;
+    color: #333;
+}
