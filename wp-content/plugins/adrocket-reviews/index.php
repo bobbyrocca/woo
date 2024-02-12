@@ -158,6 +158,16 @@ function adrocket_add_clone_button_on_edit() {
 
 	// Verifica che il commento sia una recensione
 	if ('review' === $comment->comment_type) {
+
+		// Costruisci l'URL per l'azione di cancellazione dell'immagine
+		$delete_image_url = wp_nonce_url(
+			admin_url("edit-comments.php?action=adrocket_delete_review_image&c={$comment_id}"),
+			'adrocket_delete_review_image_' . $comment_id
+		);
+
+		// Aggiungi il pulsante Delete Image
+		echo "<div style='margin: 10px 0;'><a href='{$delete_image_url}' class='button'>Delete Image</a></div>";
+
 		// Costruisci l'URL per l'azione di clonazione
 		$clone_url = wp_nonce_url(
 			admin_url("edit-comments.php?action=adrocket_clone_review&c={$comment_id}"),
@@ -232,3 +242,27 @@ function adrocket_clone_comment($comment_id) {
 	return $new_comment_id;
 }
 
+add_action('admin_init', 'adrocket_handle_delete_review_image');
+
+function adrocket_handle_delete_review_image() {
+	if (isset($_GET['action']) && $_GET['action'] == 'adrocket_delete_review_image' && !empty($_GET['c'])) {
+		$comment_id = intval($_GET['c']);
+
+		// Verifica il nonce per la sicurezza
+		check_admin_referer('adrocket_delete_review_image_' . $comment_id);
+
+		// Rimuovi l'immagine e i metadati associati
+		$image_url = get_comment_meta($comment_id, 'review_image_url', true);
+		if ($image_url) {
+			// Elimina il file dell'immagine se necessario
+			// ...
+
+			// Rimuovi il metadato
+			delete_comment_meta($comment_id, 'review_image_url');
+		}
+
+		// Reindirizza di nuovo alla pagina di modifica
+		wp_redirect(admin_url('comment.php?action=editcomment&c=' . $comment_id));
+		exit;
+	}
+}
