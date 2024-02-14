@@ -84,8 +84,11 @@ jQuery(document).ready(function ($) {
                             if (json_response.regular_price > json_response.sale_price) {
                                 console.log("Prezzo regolare:", json_response.regular_price);
                                 $('#regular-price').html(json_response.wp_regular_price);
+                                $('#discount-row').removeClass('hide');
+                                $('#discount_percentage').html(json_response.discount_percentage + '%');
                             } else {
                                 $('#regular-price').html('');
+                                $('#discount-row').addClass('hide');
                             }
                         }
                     }

@@ -31,7 +31,7 @@ if ( ! comments_open() ) {
 			$count = $product->get_review_count();
 			if ( $count && wc_review_ratings_enabled() ) {
 				/* translators: 1: reviews count 2: product name */
-				$reviews_title = sprintf( esc_html( _n( '%1$s Review', '%1$s Reviews', $count, 'woocommerce' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
+				$reviews_title = sprintf( esc_html( _n( 'Recensione', 'Recensioni', $count, 'woocommerce' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
 				echo apply_filters( 'woocommerce_reviews_title', $reviews_title, $count, $product ); // WPCS: XSS ok.
 			} else {
 				esc_html_e( 'Reviews', 'woocommerce' );
@@ -43,9 +43,9 @@ if ( ! comments_open() ) {
             <div class="review-summary-custom">
                 <?php my_custom_reviews_summary();?>
             </div>
-			<ol class="commentlist">
+			<div class="reviews-list-outer">
 				<?php my_custom_reviews(); ?>
-			</ol>
+			</div>
 
 			<?php
 			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
@@ -159,29 +159,42 @@ function my_custom_reviews() {
 
 	$reviews = get_comments($args);
 
+	$verified_img_url = '';
+
 	if (count($reviews) > 0) {
-		echo '<ol class="commentlist">';
+		echo '<div class="reviews-list">';
 
 		foreach ($reviews as $review) {
 			$rating = intval(get_comment_meta($review->comment_ID, 'rating', true));
 			$image_url = get_comment_meta($review->comment_ID, 'review_image_url', true);
 
-			echo '<li class="review">';
-			if ($image_url) {
-				echo '<img src="' . esc_url($image_url) . '" alt="Review Image" style="max-width: 100px; height: auto;">';
-			}
+			echo '<div class="review"><div class="review-col-1">';
+
 			// Nome del recensore e rating
-			echo '<p class="review-author">' . esc_html($review->comment_author) . '</p>';
+			echo '<p class="review-author">' . esc_html($review->comment_author);
+
+
+
+			echo '</p>';
+
+            echo '<p class="review-date">' . esc_html(date('d/m/Y', strtotime($review->comment_date))) . '</p>';
 			if ($rating) {
 				echo '<div class="star-rating" title="' . sprintf(esc_attr__('Rated %d out of 5', 'woocommerce'), $rating) . '">';
 				echo '<span style="width:' . (($rating / 5) * 100) . '%"><strong class="rating">' . $rating . '</strong> out of 5</span>';
 				echo '</div>';
 			}
 			echo '<p class="review-text">' . esc_html($review->comment_content) . '</p>';
-			echo '</li>';
+			if ( get_comment_meta( $review->comment_ID, 'is_verified', true ) ) {
+				echo ' <div class="verified-review"><span class="verified-badge"></span><span class="review-verified">Verificata</span></div>';
+			}
+            echo '</div>';
+			if ($image_url) {
+				echo '<div class="review-col-2"><img src="' . esc_url($image_url) . '" alt="Review Image" style="max-width: 100px; height: auto;"></div>';
+			}
+			echo '</div>';
 		}
 
-		echo '</ol>';
+		echo '</div>';
 	} else {
 		echo '<p class="woocommerce-noreviews">There are no reviews yet.</p>';
 	}
@@ -201,40 +214,33 @@ function my_custom_reviews_summary() {
 	// Stampa il sommario delle recensioni.
 	echo '<div class="product-reviews-summary">';
 	echo '<div class="summary-content">';
+	echo '<div class="summary-text expanded-summary-count">';
+	echo '<span>' . sprintf(_n('%s Review', '%s Reviews', $review_count, 'woocommerce'), number_format_i18n($review_count)) . '</span>';
+	echo '</div>'; // Chiusura .summary-text.
 	echo '<div class="expanded-summary-avg summary-text">';
-
 	// Stampa le stelle.
-	echo '<div class="star-rating" title="' . sprintf(esc_attr__('Rated %s out of 5', 'woocommerce'), $average) . '">';
+	echo '<div class="star-rating big" title="' . sprintf(esc_attr__('Rated %s out of 5', 'woocommerce'), $average) . '">';
 	echo '<span style="width:' . (($average / 5) * 100) . '%">';
 	echo '<strong class="rating">' . esc_html($average) . '</strong> out of 5';
 	echo '</span>';
 	echo '</div>'; // Chiusura .star-rating.
-
-	echo '<span>' . esc_html($average) . '</span>';
 	echo '</div>'; // Chiusura .expanded-summary-avg.
-	echo '<div class="summary-text expanded-summary-count">';
-	echo '<span>' . sprintf(_n('%s Review', '%s Reviews', $review_count, 'woocommerce'), number_format_i18n($review_count)) . '</span>';
-	echo '</div>'; // Chiusura .summary-text.
+	echo '<div><span class="average-rating">' . esc_html($average) . ' su 5</span></div>';
+
 	echo '</div>'; // Chiusura .summary-content.
 
 	// Distribuzione delle recensioni.
 	echo '<div class="reviews-dist">';
 	echo '<div class="progress-section">';
-	echo '<table>';
 	foreach ( $rating_counts as $rating => $count ) {
 		$width = ($count > 0) ? ($count / $review_count) * 100 : 0;
-		echo '<tr>';
-		echo '<td>';
 		// Stampa le stelle per ciascuna riga
 		echo '<div class="star-rating" title="' . sprintf(esc_attr__('Rated %d out of 5', 'woocommerce'), $rating) . '">';
 		echo '<span style="width:' . (($rating / 5) * 100) . '%"><strong class="rating">' . $rating . '</strong> out of 5</span>';
 		echo '</div>';
-		echo '</td>';
-		echo '<td style="padding:10px;"><div class="loox-progress"><div style="width:' . $width . '%" class="loox-progress-value"></div></div></td>';
-		echo '<td class="reviews-num">(' . $count . ')</td>';
-		echo '</tr>';
+		echo '<div class="progress-box"><div class="rate-progress"><div style="width:' . $width . '%" class="rate-progress-value"></div></div></div>';
+		echo '<div class="reviews-num">(' . $count . ')</div>';
 	}
-	echo '</tbody></table>';
 	echo '</div>'; // Chiusura .progress-section.
 	echo '</div>'; // Chiusura .reviews-dist.
 
