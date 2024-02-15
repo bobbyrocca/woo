@@ -114,7 +114,7 @@ function adrocket_quantity_selectors(): string {
 	$output .= '<div class="total-amount"><span class="amount-title">Prezzo totale: </span><del id="regular-price" class="regular">' . $default_regular_price . '</del></div>';
 	$output .= '<div class="sale-row"><span id="sales-price" class="sales">' . wc_price( $default_sales_price ) . '</span>';
 
-	$output .= '<div id="discount-row" class="discount-row '.$hide_class.'"><span>Sconto </span></spna><span id="discount_percentage" class="discount">' . $default_discount . '%</span></div>';
+	$output .= '<div id="discount-row" class="discount-row ' . $hide_class . '"><span>Sconto </span></spna><span id="discount_percentage" class="discount">' . $default_discount . '%</span></div>';
 	$output .= '</div>';
 	$output .= '</div>';
 
@@ -125,6 +125,12 @@ function adrocket_quantity_selectors(): string {
 	$output .= '<div id="adrocket-add-to-cart" class="add-1 green enabled" data-enabled="1" data-product-id="' . esc_attr( $product_id ) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
 	$output .= '</div>';
 
+	$output .= trust_badges( 'IT' );
+
+	$output .= payment_badges();
+
+	$output .= guarantee_badge( 'IT' );
+
 	return $output;
 }
 
@@ -133,6 +139,45 @@ add_shortcode( 'quantity_selector_radio', 'adrocket_quantity_selectors' );
 add_action( 'woocommerce_before_add_to_cart_form', function () {
 	echo adrocket_quantity_selectors();
 } );
+
+function trust_badges( $language ): string {
+
+	$html = '<div class="trust-badges">';
+	$html .= '<div class="trust-row"><img class="trust-img flag" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/icons-it.svg" alt="Secure Payment"><span class="trust-text">Ordine spedito dal magazzino in Italia</span></div>';
+	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/truck.svg" alt="Secure Payment"><span class="trust-text"><strong>Spedizione rapida</strong></span></div>';
+	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/guarantee.svg" alt="Secure Payment"><span class="trust-text">Soddisfazione garantita 30 giorni</span></div>';
+	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/cod.svg" alt="30 Days Money Back Guarantee"><span class="trust-text">Pagamento alla consegna</span></div>';
+	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/support.svg" alt="30 Days Money Back Guarantee"><span class="trust-text">Servizio clienti sempre attivo</span></div>';
+	$html .= '</div>';
+
+	return $html;
+}
+
+function payment_badges(): string {
+
+	$html = '<div class="payment-badges">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/visa.svg" alt="Visa">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/mastercard.svg" alt="Mastercard">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/paypal.svg" alt="Paypal">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/amex.svg" alt="American Express">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/maestro.svg" alt="Maestro">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/cod-pay.svg" alt="Pagamento alla consegna">';
+	$html .= '<img class="payment-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/poste-pay.svg" alt="Poste Pay">';
+	$html .= '</div>';
+
+	return $html;
+
+}
+
+function guarantee_badge( $language ): string {
+	$html = '<div class="guarantee-badge">';
+	$html .= '<img class="guarantee-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/satisfy.svg" alt="30 Days Money Back Guarantee">';
+	$html .= '<div class="guarantee-box"><span class="guarantee-text"><strong>Soddisfatti o rimborsati 30 giorni</strong></span><span class="guarantee-text">Se il prodotto non la soddisfa, ce lo restituisca e le rimborseremo il suo denaro.</span></div>';
+	$html .= '</div>';
+
+	return $html;
+
+}
 
 function add_custom_css() {
 
