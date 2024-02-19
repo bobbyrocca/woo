@@ -1,0 +1,19 @@
+h2.faq {
+    margin: 24px 0 20px;
+}
+
+details.faq {
+    padding: 10px;
+}
+
+.accordion.faq {
+    border-top: unset;
+}
+
+/* if screen is smaller than 768px */
+
+@media (max-width: 767px) {
+    details.faq {
+        padding: 10px 0;
+    }
+}

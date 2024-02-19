@@ -391,11 +391,16 @@ span.cart-shopping-solid {
     border-radius: 50%;
     box-shadow: 0 0 8px #e87c23;
     border: 2px solid white;
+    flex-shrink: 0;
 }
 
 .spia.available {
     background-color: #3ed660;
     box-shadow: 0 0 4px #3ed660;
+}
+
+.spia-text {
+
 }
 
 .testo {
@@ -484,7 +489,7 @@ span.cart-shopping-solid {
 }
 
 .guarantee-img {
-    max-height: 130px;
+    max-height: 100px;
     display: block;
 }
 
@@ -498,9 +503,26 @@ span.cart-shopping-solid {
     align-content: center;
     flex-grow: 1;
     position: relative;
+    padding: 12px 12px 12px 0;
 }
 
 .guarantee-text {
     font-size: 1rem;
     /* text-align: center; */
+    line-height: 1.2rem;
+}
+
+.guarantee-text.title {
+    line-height: 1.4rem;
+}
+
+/* if screen is smaller than 600px */
+
+@media (max-width: 600px) {
+    .payment-img {
+        max-height: 24px;
+    }
+    .guarantee-img {
+        max-height: 80px;
+    }
 }

@@ -121,7 +121,7 @@ function adrocket_quantity_selectors(): string {
 	// Parte finale della tua funzione adrocket_quantity_selectors
 	$output .= '    <div class="status-container">
         <div class="spia available"></div>
-        <span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi <strong class="testo blue">' . calcola_giorno_consegna( 2 ) . '.</strong></span></div>';
+        <div class="spia-text"><span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi <strong class="testo blue">' . calcola_giorno_consegna( 2 ) . '.</strong></span></div></div>';
 	$output .= '<div id="adrocket-add-to-cart" class="add-1 green enabled" data-enabled="1" data-product-id="' . esc_attr( $product_id ) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
 	$output .= '</div>';
 
@@ -172,7 +172,7 @@ function payment_badges(): string {
 function guarantee_badge( $language ): string {
 	$html = '<div class="guarantee-badge">';
 	$html .= '<img class="guarantee-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/satisfy.svg" alt="30 Days Money Back Guarantee">';
-	$html .= '<div class="guarantee-box"><span class="guarantee-text"><strong>Soddisfatti o rimborsati 30 giorni</strong></span><span class="guarantee-text">Se il prodotto non la soddisfa, ce lo restituisca e le rimborseremo il suo denaro.</span></div>';
+	$html .= '<div class="guarantee-box"><span class="guarantee-text title"><strong>Soddisfatti o rimborsati 30 giorni</strong></span><span class="guarantee-text">Se il prodotto non la soddisfa, ce lo restituisca e le rimborseremo il suo denaro.</span></div>';
 	$html .= '</div>';
 
 	return $html;
