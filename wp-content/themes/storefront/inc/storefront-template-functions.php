@@ -329,13 +329,17 @@ if ( ! function_exists( 'storefront_page_header' ) ) {
 			return;
 		}
 
+		// Aggiungi una classe 'cart' se la pagina corrente è la pagina del carrello
+		$header_class = is_cart() ? 'entry-header cart' : 'entry-header';
+        $h1_class = is_cart() ? '<h1 class="entry-title cart">' : '<h1 class="entry-title">';
+
 		?>
-		<header class="entry-header">
+        <header class="<?php echo esc_attr( $header_class ); ?>">
 			<?php
 			storefront_post_thumbnail( 'full' );
-			the_title( '<h1 class="entry-title">', '</h1>' );
+			the_title( $h1_class, '</h1>' );
 			?>
-		</header><!-- .entry-header -->
+        </header><!-- .entry-header -->
 		<?php
 	}
 }

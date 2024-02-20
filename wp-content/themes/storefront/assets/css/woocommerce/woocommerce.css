@@ -368,7 +368,8 @@ ul.products li.product .button, ul.products .wc-block-grid__product .button, .wc
 }
 
 .single-product div.product .woocommerce-product-gallery .flex-viewport {
-    margin-bottom: 1.618em
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .single-product div.product .woocommerce-product-gallery .flex-control-thumbs {
@@ -447,9 +448,9 @@ ul.products li.product .button, ul.products .wc-block-grid__product .button, .wc
 }
 
 .single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li {
-    width: 8.5714285714%;
+    width: 20%;
     float: left;
-    margin-right: 14.2857142857%
+    margin-right: 0;
 }
 
 .single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li:nth-child(5n) {
@@ -985,6 +986,9 @@ a.reset_variations {
 /*!rtl:end:ignore*/
 table.cart {
     margin-bottom: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 table.cart .product-quantity .plus, table.cart .product-quantity .minus {
@@ -2175,9 +2179,10 @@ dl.variation dd {
     }
 
     .storefront-full-width-content.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li {
-        width: 11.1111111111%;
+        width: 20%;
         float: left;
-        margin-right: 11.1111111111%
+        /* margin-right: 11.1111111111%; */
+        margin: 0;
     }
 
     .storefront-full-width-content.single-product div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-5 .flex-control-thumbs li:nth-child(5n) {
@@ -2226,7 +2231,7 @@ dl.variation dd {
     }
 
     .storefront-full-width-content.woocommerce-cart .entry-header, .storefront-full-width-content.woocommerce-checkout .entry-header, .storefront-full-width-content.woocommerce-account .entry-header, .storefront-full-width-content .woocommerce-products-header {
-        text-align: center;
+        text-align: left;
         padding: 20px 0;
     }
 
@@ -2877,4 +2882,17 @@ dl.variation dd {
     body:not(.page-template-template-fullwidth-php) table.cart td, body:not(.page-template-template-fullwidth-php) table.cart th {
         padding: 1em
     }
+}
+
+
+.storefront-full-width-content.woocommerce-cart .entry-header.cart {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+h1.cart {
+    font-size: 1.618em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: bold;
 }

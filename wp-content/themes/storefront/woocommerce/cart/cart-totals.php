@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
         <div class="order-total">
-            <span class="total-title">Total: </span> <span class="total-price"><?php wc_cart_totals_order_total_html(); ?></span>
+            <span class="total-title">Totale </span> <span class="total-price"><?php wc_cart_totals_subtotal_html(); ?></span>
         </div>
 		<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 

@@ -41,7 +41,7 @@ if ( $cross_sells ) : ?>
                 <div class="product-info-wrap">
                     <!-- Div per il nome del prodotto -->
                     <div class="x-sell-product-name">
-                        <h2><?php echo esc_html( $x_seller->get_name() ); ?></h2>
+                        <h2 class="up-seller"><?php echo esc_html( $x_seller->get_name() ); ?></h2>
                     </div>
                     <!-- Descrizione breve del prodotto -->
                     <div class="product-short-description">

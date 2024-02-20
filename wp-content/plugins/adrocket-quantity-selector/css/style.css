@@ -411,7 +411,7 @@ span.cart-shopping-solid {
     color: #39af39;
 }
 
-.testo.blue {
+.blue {
     color: #2196F3;
 }
 
@@ -525,4 +525,28 @@ span.cart-shopping-solid {
     .guarantee-img {
         max-height: 80px;
     }
+}
+
+.delivery-eta {
+    font-size: 14px;
+    border: 1px solid #ddd0b2;
+    padding: 5px 10px;
+    background: #fef8ea;
+    border-radius: 5px;
+}
+
+.delivery-eta.margin {
+    margin-bottom: 10px;
+}
+
+.orange {
+    color: #ff9800;
+}
+
+.free-shipping-notice {
+    font-size: 14px;
+    border: 1px solid #aacbe5;
+    padding: 5px 10px;
+    background: #f3fbff;
+    border-radius: 5px;
 }

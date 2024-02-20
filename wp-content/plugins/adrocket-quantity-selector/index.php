@@ -22,6 +22,14 @@ function adrocket_quantity_selectors(): string {
 	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
 	$output        = '<div class="adrocket-block">';
 	$output        .= '<div id="blocker" class="blocker hide"><div class="spinner"></div></div>';
+
+	$shipping_policy = get_post_meta( $product_id, 'shipping_policy', true );
+
+	$standard_shipping_fee = get_post_meta( $product_id, 'standard_shipping_fee', true ) ?: 5;
+
+	$free_shipping_price_threshold    = 50;
+	$free_shipping_quantity_threshold = 2;
+
 	if ( '1' == $bundle_policy ) {
 
 		$output .= '<div id="quantity-selector-radio" class="radio-flex">';
@@ -38,7 +46,7 @@ function adrocket_quantity_selectors(): string {
 				$default_sales_price = get_post_meta( $child_id, 'qty_based_price_1', true );
 			}
 
-			$output .= create_bundles( $child_id, $product, true );
+			$output .= create_bundles( $child_id, $product, true, $standard_shipping_fee, $shipping_policy );
 		} else {
 
 			$default_regular_price = $product->get_regular_price();
@@ -52,7 +60,7 @@ function adrocket_quantity_selectors(): string {
 			}
 
 			// Generate radio buttons for quantity
-			$output .= create_bundles( $product_id, $product );
+			$output .= create_bundles( $product_id, $product, $standard_shipping_fee, $shipping_policy );
 		}
 		$output .= '</div>';
 
@@ -121,7 +129,7 @@ function adrocket_quantity_selectors(): string {
 	// Parte finale della tua funzione adrocket_quantity_selectors
 	$output .= '    <div class="status-container">
         <div class="spia available"></div>
-        <div class="spia-text"><span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi <strong class="testo blue">' . calcola_giorno_consegna( 2 ) . '.</strong></span></div></div>';
+        <div class="spia-text"><span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi <strong class="testo blue">' . calcola_giorno_consegna( 3 ) . '.</strong></span></div></div>';
 	$output .= '<div id="adrocket-add-to-cart" class="add-1 green enabled" data-enabled="1" data-product-id="' . esc_attr( $product_id ) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
 	$output .= '</div>';
 
@@ -194,7 +202,7 @@ function selector_enqueue_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'selector_enqueue_scripts' );
 
-function create_bundles( $product_id, $product, $is_variable = false ): string {
+function create_bundles( $product_id, $product, $is_variable = false, $standard_shipping_fee = 5, $shipping_policy = 2 ): string {
 
 	$output = '';
 
@@ -216,9 +224,22 @@ function create_bundles( $product_id, $product, $is_variable = false ): string {
 			$sale_price = get_post_meta( $product_id, 'qty_based_price_' . $i, true );
 		}
 
-		$claim     = ( $i == 2 ) ? 'Most Popular' : '';
-		$shipping  = ( $i > 1 ) ? 'Free Shipping' : 'Shipping ' . wc_price( 5 );
-		$tag_color = ( $i > 1 ) ? 'blue' : 'grey';
+		$claim = ( $i == 2 ) ? 'Most Popular' : '';
+
+		if ( $shipping_policy == 2 ) {
+
+			$shipping  = ( $i > 1 ) ? 'Free Shipping' : 'Shipping ' . wc_price( $standard_shipping_fee );
+			$tag_color = ( $i > 1 ) ? 'blue' : 'grey';
+
+		} elseif ( $shipping_policy == 1 ) {
+			// Free is price is over 50
+			$shipping  = ( $sale_price > 50 ) ? 'Free Shipping' : 'Shipping ' . wc_price( $standard_shipping_fee );
+			$tag_color = ( $sale_price > 50 ) ? 'blue' : 'grey';
+
+		} else {
+			$shipping  = 'Shipping ' . wc_price( $standard_shipping_fee );
+			$tag_color = 'grey';
+		}
 
 		$unit_price = $sale_price / $i;
 
@@ -314,4 +335,15 @@ function calcola_giorno_consegna( $shipping_days ): string {
 	// Restituisce il giorno della settimana, la data completa e l'anno
 
 	return $day_of_week . ', ' . $now->format( 'd' ) . ' ' . $month; // R
+}
+
+add_action( 'woocommerce_before_cart_table' , 'delivery_eta');
+add_action( 'woocommerce_before_cart_collaterals' , 'free_shipping_notice');
+
+function delivery_eta() {
+	echo '<div class="delivery-eta margin">Ordina ora e ricevi <strong class="orange">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
+}
+
+function free_shipping_notice() {
+	echo '<div class="free-shipping-notice"><strong class="blue">Spedizione gratuita</strong> per ordini superiori a <strong class="blue">50€</strong></div>';
 }

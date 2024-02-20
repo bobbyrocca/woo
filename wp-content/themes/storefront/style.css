@@ -36,7 +36,8 @@ html {
 }
 
 body {
-    margin: 0
+    margin: 0;
+    font-family: Nunito, sans-serif;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
@@ -217,7 +218,6 @@ body {
 
 body, button, input, textarea {
     color: #43454b;
-    font-family: "Source Sans Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     line-height: 1.618;
     text-rendering: optimizeLegibility;
     font-weight: 400
@@ -236,8 +236,9 @@ summary {
 h1, h2, h3, h4, h5, h6 {
     clear: both;
     font-weight: 300;
-    margin: 0 0 .5407911001em;
-    color: #131315
+    margin: 20px 0;
+    color: #131315;
+    font-family: Nunito, sans-serif;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -2249,8 +2250,8 @@ div.product-item {
 }
 
 div.product-image {
-    max-width: 180px;
-    max-height: 180px;
+    max-width: 138px;
+    max-height: 138px;
 }
 
 @media (max-width: 1024px) {
@@ -2299,7 +2300,7 @@ del.price.regular-price {
 }
 
 div.product-short-description {
-
+    font-size: 14px;
 }
 
 div.custom-add-to-cart-1 {
@@ -2325,6 +2326,8 @@ span.total-title {
 
 span.total-price {
     font-size: 1.4rem;
+    font-weight: bold;
+    color: #FF5722;
 }
 
 a.custom-add-to-cart-1 {
@@ -2334,11 +2337,11 @@ a.custom-add-to-cart-1 {
     gap: 6px;
     cursor: pointer;
     justify-content: center;
-    background: #22971b;
+    background: #2196F3;
     color: #ffffff;
-    padding: 10px 30px;
+    padding: 6px 18px;
     border-radius: 8px;
-    border-bottom: 4px solid #1a7116;
+    border-bottom: 4px solid #2168a1;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     text-decoration: none !important;
     white-space: nowrap;
@@ -2360,13 +2363,15 @@ div.price-button {
     flex-wrap: wrap;
 }
 
-@media (max-width: 479px) {
+@media (max-width: 499px) {
     div.price-button {
         flex-direction: column;
         align-items: flex-end;
         gap: 6px;
     }
+}
 
+@media (max-width: 479px) {
     div.product-info-wrap {
         gap: 6px;
     }
@@ -2559,3 +2564,15 @@ span.average-rating {
     width: 100%;
 }
 
+a.checkout-button {
+    background: #22971b !important;
+    color: #ffffff !important;
+    padding: 10px 30px !important;
+    border-radius: 8px !important;
+    border-bottom: 4px solid #1a7116 !important;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+h2.up-seller {
+    margin: 0;
+}

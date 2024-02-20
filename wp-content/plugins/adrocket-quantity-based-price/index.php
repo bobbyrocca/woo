@@ -426,3 +426,16 @@ function save_shipping_days_field( $post_id ) {
 }
 
 add_action( 'woocommerce_process_product_meta', 'save_shipping_days_field' );
+
+add_filter( 'woocommerce_package_rates', 'hide_standard_shipping_when_free_is_available', 100 );
+
+function hide_standard_shipping_when_free_is_available( $rates ) {
+	$free = array();
+	foreach ( $rates as $rate_id => $rate ) {
+		if ( 'free_shipping' === $rate->method_id ) {
+			$free[ $rate_id ] = $rate;
+			break;
+		}
+	}
+	return ! empty( $free ) ? $free : $rates;
+}
