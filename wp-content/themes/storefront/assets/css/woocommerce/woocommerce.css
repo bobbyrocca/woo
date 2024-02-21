@@ -353,14 +353,14 @@ ul.products li.product .button, ul.products .wc-block-grid__product .button, .wc
 
 .single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger {
     position: absolute;
-    top: .875em;
-    right: .875em;
+    top: 6px;
+    right: 6px;
     display: block;
     height: 2em;
     width: 2em;
     border-radius: 3px;
     z-index: 99;
-    text-align: center
+    text-align: center;
 }
 
 .single-product div.product .woocommerce-product-gallery img {

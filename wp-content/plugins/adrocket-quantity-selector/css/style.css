@@ -452,7 +452,7 @@ span.cart-shopping-solid {
 
 .trust-text {
     font-size: 1rem;
-    text-align: center;
+    line-height: 1.3em;
 }
 
 .payment-badges {
@@ -496,7 +496,7 @@ span.cart-shopping-solid {
 .guarantee-box {
     display: flex;
     flex-direction: column;
-    /* gap: 6px; */
+    gap: 6px;
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
@@ -513,7 +513,7 @@ span.cart-shopping-solid {
 }
 
 .guarantee-text.title {
-    line-height: 1.4rem;
+    line-height: 1.3rem;
 }
 
 /* if screen is smaller than 600px */

@@ -19,8 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( $upsells ) : ?>
+$flag = 0;
 
+if ( $upsells && $flag == 1) : ?>
 	<section class="up-sells upsells products">
 		<?php
 		$heading = apply_filters( 'woocommerce_product_upsells_products_heading', __( 'You may also like&hellip;', 'woocommerce' ) );

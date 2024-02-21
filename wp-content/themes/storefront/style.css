@@ -2576,3 +2576,37 @@ a.checkout-button {
 h2.up-seller {
     margin: 0;
 }
+
+.comment-respond {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f8f8f8;
+}
+
+#comment {
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, .125);
+}
+
+#submit {
+    background: #dd9933;
+    color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 8px;
+    border-bottom: 4px solid #996416;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 1.1em;
+}
+
+#submit:hover {
+    opacity: 0.8;
+    transition: 1s;
+}
+
+.review-text {
+    line-height: 1.4em;
+    font-size: 16px;
+}

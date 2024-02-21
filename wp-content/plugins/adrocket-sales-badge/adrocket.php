@@ -53,9 +53,14 @@ function custom_sale_badge( $html, $post, $product ) {
 }
 
 add_action( 'woocommerce_after_shop_loop_item', 'add_sale_badge_to_products' );
+
+/* Add the sales badge to the product thumbnails
+
 add_action( 'woocommerce_product_thumbnails', function () {
 	add_sale_badge_to_products( true );
 } );
+
+*/
 
 function add_sale_badge_to_products($is_main_product = false) {
 	global $product;

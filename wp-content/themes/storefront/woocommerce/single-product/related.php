@@ -19,7 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( $related_products ) : ?>
+$flag = 0;
+
+if ( $related_products && $flag == 1) : ?>
 
 	<section class="related products">
 
