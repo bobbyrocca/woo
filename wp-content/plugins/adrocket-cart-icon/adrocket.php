@@ -35,3 +35,5 @@ function custom_cart_link_enqueue_style() {
 }
 
 add_action( 'wp_enqueue_scripts', 'custom_cart_link_enqueue_style' );
+
+remove_action( 'storefront_header', 'storefront_header_cart', 10 );

@@ -395,7 +395,7 @@ ul.products li.product .button, ul.products .wc-block-grid__product .button, .wc
 }
 
 .single-product div.product .woocommerce-product-gallery img {
-    margin: 0
+    margin: auto;
 }
 
 .single-product div.product .woocommerce-product-gallery .flex-viewport {

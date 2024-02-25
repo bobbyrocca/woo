@@ -9,11 +9,12 @@ if ( ! function_exists( 'storefront_woo_cart_available' ) ) {
 	/**
 	 * Validates whether the Woo Cart instance is available in the request
 	 *
-	 * @since 2.6.0
 	 * @return bool
+	 * @since 2.6.0
 	 */
 	function storefront_woo_cart_available() {
 		$woo = WC();
+
 		return $woo instanceof \WooCommerce && $woo->cart instanceof \WC_Cart;
 	}
 }
@@ -23,13 +24,13 @@ if ( ! function_exists( 'storefront_before_content' ) ) {
 	 * Before Content
 	 * Wraps all WooCommerce content in wrappers which match the theme markup
 	 *
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	function storefront_before_content() {
 		?>
-		<div id="primary" class="content-area">
-			<main id="main" class="site-main" role="main">
+        <div id="primary" class="content-area">
+        <main id="main" class="site-main" role="main">
 		<?php
 	}
 }
@@ -39,14 +40,13 @@ if ( ! function_exists( 'storefront_after_content' ) ) {
 	 * After Content
 	 * Closes the wrapping divs
 	 *
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	function storefront_after_content() {
 		?>
-			</main><!-- #main -->
-		</div><!-- #primary -->
-
+        </main><!-- #main -->
+        </div><!-- #primary -->
 		<?php
 		do_action( 'storefront_sidebar' );
 	}
@@ -57,7 +57,8 @@ if ( ! function_exists( 'storefront_cart_link_fragment' ) ) {
 	 * Cart Fragments
 	 * Ensure cart contents update when products are added to the cart via AJAX
 	 *
-	 * @param  array $fragments Fragments to refresh via AJAX.
+	 * @param array $fragments Fragments to refresh via AJAX.
+	 *
 	 * @return array            Fragments to refresh via AJAX
 	 */
 	function storefront_cart_link_fragment( $fragments ) {
@@ -88,10 +89,24 @@ if ( ! function_exists( 'storefront_cart_link' ) ) {
 			return;
 		}
 		?>
-			<a class="cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>" title="<?php esc_attr_e( 'View your shopping cart', 'storefront' ); ?>">
-				<?php /* translators: %d: number of items in cart */ ?>
-				<?php echo wp_kses_post( WC()->cart->get_cart_subtotal() ); ?> <span class="count"><?php echo wp_kses_data( sprintf( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'storefront' ), WC()->cart->get_cart_contents_count() ) ); ?></span>
-			</a>
+		<?php
+		if ( WC()->cart->get_cart_contents_count() > 0 ) {
+			$count_class = '';
+		} else {
+			$count_class = 'hide';
+		}
+		?>
+        <a class="custom-cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>">
+            <span class="count count-icon <?php echo $count_class; ?>"><?php echo wp_kses_data( sprintf( _n( '%d', '%d', WC()->cart->get_cart_contents_count(), 'storefront' ), WC()->cart->get_cart_contents_count() ) ); ?></span>
+            <div class="custom-cart-icon"></div>
+            <div class="custom-cart-amount">
+				<?php
+				if ( WC()->cart->get_subtotal() > 0 ) {
+					echo wp_kses_post( WC()->cart->get_cart_subtotal() );
+				}
+				?>
+            </div>
+        </a>
 		<?php
 	}
 }
@@ -100,16 +115,16 @@ if ( ! function_exists( 'storefront_product_search' ) ) {
 	/**
 	 * Display Product Search
 	 *
-	 * @since  1.0.0
-	 * @uses  storefront_is_woocommerce_activated() check if WooCommerce is activated
 	 * @return void
+	 * @uses  storefront_is_woocommerce_activated() check if WooCommerce is activated
+	 * @since  1.0.0
 	 */
 	function storefront_product_search() {
 		if ( storefront_is_woocommerce_activated() ) {
 			?>
-			<div class="site-search">
+            <div class="site-search">
 				<?php the_widget( 'WC_Widget_Product_Search', 'title=' ); ?>
-			</div>
+            </div>
 			<?php
 		}
 	}
@@ -119,9 +134,9 @@ if ( ! function_exists( 'storefront_header_cart' ) ) {
 	/**
 	 * Display Header Cart
 	 *
-	 * @since  1.0.0
-	 * @uses  storefront_is_woocommerce_activated() check if WooCommerce is activated
 	 * @return void
+	 * @uses  storefront_is_woocommerce_activated() check if WooCommerce is activated
+	 * @since  1.0.0
 	 */
 	function storefront_header_cart() {
 		if ( storefront_is_woocommerce_activated() ) {
@@ -131,14 +146,14 @@ if ( ! function_exists( 'storefront_header_cart' ) ) {
 				$class = '';
 			}
 			?>
-		<ul id="site-header-cart" class="site-header-cart menu">
-			<li class="<?php echo esc_attr( $class ); ?>">
-				<?php storefront_cart_link(); ?>
-			</li>
-			<li>
-				<?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
-			</li>
-		</ul>
+            <ul id="site-header-cart" class="site-header-cart menu">
+                <li class="<?php echo esc_attr( $class ); ?>">
+					<?php storefront_cart_link(); ?>
+                </li>
+                <li>
+					<?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
+                </li>
+            </ul>
 			<?php
 		}
 	}
@@ -149,13 +164,13 @@ if ( ! function_exists( 'storefront_upsell_display' ) ) {
 	 * Upsells
 	 * Replace the default upsell function with our own which displays the correct number product columns
 	 *
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 * @uses    woocommerce_upsell_display()
 	 */
 	function storefront_upsell_display() {
 		$columns = apply_filters( 'storefront_upsells_columns', 3 );
-		woocommerce_upsell_display( -1, $columns );
+		woocommerce_upsell_display( - 1, $columns );
 	}
 }
 
@@ -163,8 +178,8 @@ if ( ! function_exists( 'storefront_sorting_wrapper' ) ) {
 	/**
 	 * Sorting wrapper
 	 *
-	 * @since   1.4.3
 	 * @return  void
+	 * @since   1.4.3
 	 */
 	function storefront_sorting_wrapper() {
 		echo '<div class="storefront-sorting">';
@@ -175,8 +190,8 @@ if ( ! function_exists( 'storefront_sorting_wrapper_close' ) ) {
 	/**
 	 * Sorting wrapper close
 	 *
-	 * @since   1.4.3
 	 * @return  void
+	 * @since   1.4.3
 	 */
 	function storefront_sorting_wrapper_close() {
 		echo '</div>';
@@ -187,8 +202,8 @@ if ( ! function_exists( 'storefront_product_columns_wrapper' ) ) {
 	/**
 	 * Product columns wrapper
 	 *
-	 * @since   2.2.0
 	 * @return  void
+	 * @since   2.2.0
 	 */
 	function storefront_product_columns_wrapper() {
 		$columns = storefront_loop_columns();
@@ -218,8 +233,8 @@ if ( ! function_exists( 'storefront_product_columns_wrapper_close' ) ) {
 	/**
 	 * Product columns wrapper close
 	 *
-	 * @since   2.2.0
 	 * @return  void
+	 * @since   2.2.0
 	 */
 	function storefront_product_columns_wrapper_close() {
 		echo '</div>';
@@ -288,9 +303,10 @@ if ( ! function_exists( 'storefront_product_categories' ) ) {
 	 * Display Product Categories
 	 * Hooked into the `homepage` action in the homepage template
 	 *
-	 * @since  1.0.0
 	 * @param array $args the product section args.
+	 *
 	 * @return void
+	 * @since  1.0.0
 	 */
 	function storefront_product_categories( $args ) {
 		$args = apply_filters(
@@ -343,9 +359,10 @@ if ( ! function_exists( 'storefront_recent_products' ) ) {
 	 * Display Recent Products
 	 * Hooked into the `homepage` action in the homepage template
 	 *
-	 * @since  1.0.0
 	 * @param array $args the product section args.
+	 *
 	 * @return void
+	 * @since  1.0.0
 	 */
 	function storefront_recent_products( $args ) {
 		$args = apply_filters(
@@ -398,9 +415,10 @@ if ( ! function_exists( 'storefront_featured_products' ) ) {
 	 * Display Featured Products
 	 * Hooked into the `homepage` action in the homepage template
 	 *
-	 * @since  1.0.0
 	 * @param array $args the product section args.
+	 *
 	 * @return void
+	 * @since  1.0.0
 	 */
 	function storefront_featured_products( $args ) {
 		$args = apply_filters(
@@ -455,9 +473,10 @@ if ( ! function_exists( 'storefront_popular_products' ) ) {
 	 * Display Popular Products
 	 * Hooked into the `homepage` action in the homepage template
 	 *
-	 * @since  1.0.0
 	 * @param array $args the product section args.
+	 *
 	 * @return void
+	 * @since  1.0.0
 	 */
 	function storefront_popular_products( $args ) {
 		$args = apply_filters(
@@ -511,8 +530,9 @@ if ( ! function_exists( 'storefront_on_sale_products' ) ) {
 	 * Hooked into the `homepage` action in the homepage template
 	 *
 	 * @param array $args the product section args.
-	 * @since  1.0.0
+	 *
 	 * @return void
+	 * @since  1.0.0
 	 */
 	function storefront_on_sale_products( $args ) {
 		$args = apply_filters(
@@ -567,9 +587,10 @@ if ( ! function_exists( 'storefront_best_selling_products' ) ) {
 	 * Display Best Selling Products
 	 * Hooked into the `homepage` action in the homepage template
 	 *
-	 * @since 2.0.0
 	 * @param array $args the product section args.
+	 *
 	 * @return void
+	 * @since 2.0.0
 	 */
 	function storefront_best_selling_products( $args ) {
 		$args = apply_filters(
@@ -623,15 +644,16 @@ if ( ! function_exists( 'storefront_promoted_products' ) ) {
 	 * Check for featured products then on-sale products and use the appropiate shortcode.
 	 * If neither exist, it can fallback to show recently added products.
 	 *
-	 * @since  1.5.1
 	 * @param integer $per_page total products to display.
 	 * @param integer $columns columns to arrange products in to.
 	 * @param boolean $recent_fallback Should the function display recent products as a fallback when there are no featured or on-sale products?.
+	 *
+	 * @return void
 	 * @uses  storefront_is_woocommerce_activated()
 	 * @uses  wc_get_featured_product_ids()
 	 * @uses  wc_get_product_ids_on_sale()
 	 * @uses  storefront_do_shortcode()
-	 * @return void
+	 * @since  1.5.1
 	 */
 	function storefront_promoted_products( $per_page = '2', $columns = '2', $recent_fallback = true ) {
 		if ( storefront_is_woocommerce_activated() ) {
@@ -706,29 +728,29 @@ if ( ! function_exists( 'storefront_handheld_footer_bar' ) ) {
 			return;
 		}
 
-		if ( wc_get_page_id( 'myaccount' ) === -1 ) {
+		if ( wc_get_page_id( 'myaccount' ) === - 1 ) {
 			unset( $links['my-account'] );
 		}
 
-		if ( wc_get_page_id( 'cart' ) === -1 ) {
+		if ( wc_get_page_id( 'cart' ) === - 1 ) {
 			unset( $links['cart'] );
 		}
 
 		$links = apply_filters( 'storefront_handheld_footer_bar_links', $links );
 		?>
-		<div class="storefront-handheld-footer-bar">
-			<ul class="columns-<?php echo count( $links ); ?>">
+        <div class="storefront-handheld-footer-bar">
+            <ul class="columns-<?php echo count( $links ); ?>">
 				<?php foreach ( $links as $key => $link ) : ?>
-					<li class="<?php echo esc_attr( $key ); ?>">
+                    <li class="<?php echo esc_attr( $key ); ?>">
 						<?php
 						if ( $link['callback'] ) {
 							call_user_func( $link['callback'], $key, $link );
 						}
 						?>
-					</li>
+                    </li>
 				<?php endforeach; ?>
-			</ul>
-		</div>
+            </ul>
+        </div>
 		<?php
 	}
 }
@@ -756,9 +778,9 @@ if ( ! function_exists( 'storefront_handheld_footer_bar_cart_link' ) ) {
 			return;
 		}
 		?>
-			<a class="footer-cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'Cart', 'storefront' ); ?>
-				<span class="count"><?php echo wp_kses_data( WC()->cart->get_cart_contents_count() ); ?></span>
-			</a>
+        <a class="footer-cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'Cart', 'storefront' ); ?>
+            <span class="count"><?php echo wp_kses_data( WC()->cart->get_cart_contents_count() ); ?></span>
+        </a>
 		<?php
 	}
 }
@@ -800,21 +822,21 @@ if ( ! function_exists( 'storefront_single_product_pagination' ) ) {
 		}
 
 		?>
-		<nav class="storefront-product-pagination" aria-label="<?php esc_attr_e( 'More products', 'storefront' ); ?>">
+        <nav class="storefront-product-pagination" aria-label="<?php esc_attr_e( 'More products', 'storefront' ); ?>">
 			<?php if ( $previous_product ) : ?>
-				<a href="<?php echo esc_url( $previous_product->get_permalink() ); ?>" rel="prev">
+                <a href="<?php echo esc_url( $previous_product->get_permalink() ); ?>" rel="prev">
 					<?php echo wp_kses_post( $previous_product->get_image() ); ?>
-					<span class="storefront-product-pagination__title"><?php echo wp_kses_post( $previous_product->get_name() ); ?></span>
-				</a>
+                    <span class="storefront-product-pagination__title"><?php echo wp_kses_post( $previous_product->get_name() ); ?></span>
+                </a>
 			<?php endif; ?>
 
 			<?php if ( $next_product ) : ?>
-				<a href="<?php echo esc_url( $next_product->get_permalink() ); ?>" rel="next">
+                <a href="<?php echo esc_url( $next_product->get_permalink() ); ?>" rel="next">
 					<?php echo wp_kses_post( $next_product->get_image() ); ?>
-					<span class="storefront-product-pagination__title"><?php echo wp_kses_post( $next_product->get_name() ); ?></span>
-				</a>
+                    <span class="storefront-product-pagination__title"><?php echo wp_kses_post( $next_product->get_name() ); ?></span>
+                </a>
 			<?php endif; ?>
-		</nav><!-- .storefront-product-pagination -->
+        </nav><!-- .storefront-product-pagination -->
 		<?php
 	}
 }
@@ -859,21 +881,21 @@ if ( ! function_exists( 'storefront_sticky_single_add_to_cart' ) ) {
 
 		wp_enqueue_script( 'storefront-sticky-add-to-cart' );
 		?>
-			<section class="storefront-sticky-add-to-cart">
-				<div class="col-full">
-					<div class="storefront-sticky-add-to-cart__content">
-						<?php echo wp_kses_post( woocommerce_get_product_thumbnail() ); ?>
-						<div class="storefront-sticky-add-to-cart__content-product-info">
-							<span class="storefront-sticky-add-to-cart__content-title"><?php esc_html_e( 'You\'re viewing:', 'storefront' ); ?> <strong><?php the_title(); ?></strong></span>
-							<span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
-							<?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating() ) ); ?>
-						</div>
-						<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="storefront-sticky-add-to-cart__content-button button alt" rel="nofollow">
-							<?php echo esc_attr( $product->add_to_cart_text() ); ?>
-						</a>
-					</div>
-				</div>
-			</section><!-- .storefront-sticky-add-to-cart -->
+        <section class="storefront-sticky-add-to-cart">
+            <div class="col-full">
+                <div class="storefront-sticky-add-to-cart__content">
+					<?php echo wp_kses_post( woocommerce_get_product_thumbnail() ); ?>
+                    <div class="storefront-sticky-add-to-cart__content-product-info">
+                        <span class="storefront-sticky-add-to-cart__content-title"><?php esc_html_e( 'You\'re viewing:', 'storefront' ); ?> <strong><?php the_title(); ?></strong></span>
+                        <span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
+						<?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating() ) ); ?>
+                    </div>
+                    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="storefront-sticky-add-to-cart__content-button button alt" rel="nofollow">
+						<?php echo esc_attr( $product->add_to_cart_text() ); ?>
+                    </a>
+                </div>
+            </div>
+        </section><!-- .storefront-sticky-add-to-cart -->
 		<?php
 	}
 }
@@ -884,13 +906,13 @@ if ( ! function_exists( 'storefront_woocommerce_brands_homepage_section' ) ) {
 	 * Hooked into the `homepage` action in the homepage template.
 	 * Requires WooCommerce Brands.
 	 *
-	 * @since  2.3.0
+	 * @return void
 	 * @link   https://woo.com/products/brands/
 	 * @uses   apply_filters()
 	 * @uses   storefront_do_shortcode()
 	 * @uses   wp_kses_post()
 	 * @uses   do_action()
-	 * @return void
+	 * @since  2.3.0
 	 */
 	function storefront_woocommerce_brands_homepage_section() {
 		$args = apply_filters(
@@ -938,13 +960,13 @@ if ( ! function_exists( 'storefront_woocommerce_brands_archive' ) ) {
 	 * Display brand image on brand archives
 	 * Requires WooCommerce Brands.
 	 *
-	 * @since  2.3.0
+	 * @return void
 	 * @link   https://woo.com/products/brands/
 	 * @uses   is_tax()
 	 * @uses   wp_kses_post()
 	 * @uses   get_brand_thumbnail_image()
 	 * @uses   get_queried_object()
-	 * @return void
+	 * @since  2.3.0
 	 */
 	function storefront_woocommerce_brands_archive() {
 		if ( is_tax( 'product_brand' ) ) {
@@ -958,11 +980,11 @@ if ( ! function_exists( 'storefront_woocommerce_brands_single' ) ) {
 	 * Output product brand image for use on single product pages
 	 * Requires WooCommerce Brands.
 	 *
-	 * @since  2.3.0
+	 * @return void
 	 * @link   https://woo.com/products/brands/
 	 * @uses   storefront_do_shortcode()
 	 * @uses   wp_kses_post()
-	 * @return void
+	 * @since  2.3.0
 	 */
 	function storefront_woocommerce_brands_single() {
 		$brand = storefront_do_shortcode(
@@ -977,9 +999,9 @@ if ( ! function_exists( 'storefront_woocommerce_brands_single' ) ) {
 		}
 
 		?>
-		<div class="storefront-wc-brands-single-product">
+        <div class="storefront-wc-brands-single-product">
 			<?php echo wp_kses_post( $brand ); ?>
-		</div>
+        </div>
 		<?php
 	}
 }
