@@ -8,7 +8,7 @@ jQuery(document).ready(function ($) {
     // Se la quantità viene cambiata tramite radio buttons, aggiorna i pulsanti radio
     $('input[type=radio][name=quantity]').on('change', function () {
         console.log("Cambio valore pulsante radio (selector.js)")
-        updateVariantSelectors(parseInt($(this).val()),variant_sel);
+        updateVariantSelectors(parseInt($(this).val()), variant_sel);
         updateRadioButtons();
     });
 
@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
 
     $('#quantity-selector').on('change', function () {
         console.log("Cambio valore selettore quantità")
-        updateVariantSelectors(parseInt($(this).val()),variant_sel);
+        updateVariantSelectors(parseInt($(this).val()), variant_sel);
         updateRadioButtons();
     });
 
@@ -33,7 +33,28 @@ jQuery(document).ready(function ($) {
 
     resetForm();
 
-    function updateVariantSelectors(selectedQuantity,selectorsContainer) {
+    $("#scroll-to-cart").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#adrocket-block").offset().top - 20
+        }, 1000); // 1000 millisecondi per l'animazione di scorrimento
+    });
+
+    $(window).scroll(function () {
+        var top_of_element = $("#adrocket-add-to-cart").offset().top;
+        var bottom_of_element = $("#adrocket-add-to-cart").offset().top + $("#adrocket-add-to-cart").outerHeight();
+        var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+
+        if (bottom_of_screen > bottom_of_element && $(window).scrollTop() > top_of_element) {
+            // Lo scroll è sceso sotto adrocket-add-to-cart e adrocket-add-to-cart non è visibile
+            $("#stick-single").removeClass('hide');
+        } else {
+            // adrocket-add-to-cart è visibile o lo scroll non ha ancora superato l'elemento
+            $("#stick-single").addClass('hide');
+        }
+    });
+
+
+    function updateVariantSelectors(selectedQuantity, selectorsContainer) {
         if (isNaN(selectedQuantity)) {
             // Gestisci il caso in cui selectedQuantity non sia un numero
             return;

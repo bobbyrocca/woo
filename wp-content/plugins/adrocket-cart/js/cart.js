@@ -50,16 +50,15 @@ jQuery(document).ready(function ($) {
 
     });
 
-    $(document).on('change', '.woocommerce-cart-form .quantity .qty', function() {
+    $(document).on('change', '.woocommerce-cart-form .quantity .qty', function () {
         var $form = $(this).closest('form.woocommerce-cart-form');
 
         console.log("Modificata quantità")
         // Imposta un breve ritardo per consentire all'utente di completare le modifiche
         clearTimeout(window.update_cart_timeout);
 
-            // Aggiorna il carrello inviando il form
-            $form.find('button[name="update_cart"]').prop('disabled', false).trigger('click');
+        // Aggiorna il carrello inviando il form
+        $form.find('button[name="update_cart"]').prop('disabled', false).trigger('click');
 
     });
-
 });

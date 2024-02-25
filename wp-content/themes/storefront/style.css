@@ -416,7 +416,7 @@ body {
 }
 
 .site {
-    overflow-x: hidden
+    /*overflow-x: hidden*/
 }
 
 .site-content, .header-widget-region {
@@ -1678,9 +1678,6 @@ button.menu-toggle::after {
     }
 
     .col-full {
-        max-width: 66.4989378333em;
-        margin-left: auto;
-        margin-right: auto;
         padding: 0 2.617924em;
         box-sizing: content-box;
         display: flex;
@@ -1696,7 +1693,6 @@ button.menu-toggle::after {
     }
 
     .content-area {
-        width: 73.9130434783%;
         float: left;
         margin-right: 4.347826087%
     }
@@ -1708,7 +1704,7 @@ button.menu-toggle::after {
     }
 
     .right-sidebar .content-area {
-        width: 73.9130434783%;
+        max-width: 1024px;
         float: left;
         margin-right: 4.347826087%
     }
@@ -1732,10 +1728,9 @@ button.menu-toggle::after {
     }
 
     .storefront-full-width-content .content-area {
-        width: 100%;
         float: left;
-        margin-left: 0;
-        margin-right: 0
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .content-area, .widget-area {
@@ -2149,40 +2144,43 @@ button.menu-toggle::after {
 
 @media (max-width: 66.4989378333em) {
     .col-full {
-        margin-left: 2.617924em;
-        margin-right: 2.617924em;
-        padding: 0
+        padding: 0 20px;
     }
 }
 
 @media (max-width: 568px) {
     .col-full {
-        margin-left: 1.41575em;
-        margin-right: 1.41575em;
-        padding: 0
+        padding: 0 10px;
     }
 }
 
 div.cart-row {
-    display: flex;
+    display: grid;
     justify-content: space-between;
     align-items: center;
     /* margin: 10px 0; */
+    grid-template-columns: 1fr 1fr;
 }
 
 div.product-name-quantity {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex: 1;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     margin: 0;
+    gap: 6px;
+}
+
+div.product-subtotal {
+    white-space: nowrap;
 }
 
 @media (max-width: 568px) {
     div.cart-row {
         flex-direction: column;
         align-items: flex-start;
+        grid-template-columns: 1fr;
     }
 
     div.product-name-quantity {
@@ -2200,29 +2198,46 @@ div.custom-cart {
     display: flex;
     flex-direction: row;
     gap: 40px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: nowrap;
 }
 
 div.custom-cart-col-1 {
     flex: 1;
-    /* min-width: 700px; */
+    min-width: 640px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 div.custom-cart-col-2 {
     flex: 1;
     max-width: 320px;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
 }
 
 @media (max-width: 1024px) {
+
+    div.custom-cart-col-2 {
+        bottom: 0;
+    }
+
     div.custom-cart-col-1 {
         max-width: 100%;
+        min-width: 100%;
     }
 
     div.custom-cart {
         gap: 10px;
+    }
+
+    div.custom-cart {
+        align-items: center;
     }
 }
 
@@ -2233,6 +2248,7 @@ div.custom-cart-col-2 {
 
     div.custom-cart-col-2 {
         max-width: 100%;
+        width: 100%;
     }
 }
 
@@ -2318,7 +2334,33 @@ div.order-total {
     flex-direction: row;
     justify-content: center;
     gap: 6px;
+    padding-top: 10px;
 }
+
+@media (max-width: 1023px) {
+    div.cart-total-wrapped {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        padding: 15px;
+        /*border-top: 1px solid #e7e7e7;*/
+        z-index: 1000;
+        box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    div.order-total {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 419px) {
+    div.cart-total-wrapped {
+        padding: 10px;
+    }
+}
+
 
 span.total-title {
     font-size: 1.4rem;
@@ -2609,4 +2651,31 @@ h2.up-seller {
 .review-text {
     line-height: 1.4em;
     font-size: 16px;
+}
+
+.user-review-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.user-review-link {
+    color: #75aee5;
+    /* font-weight: bold; */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.user-review-link:hover {
+    opacity: 0.8;
+    transition: 1s;
+}
+
+div.hide {
+    display: none;
+}
+
+.entry-title {
+    margin: 12px 0;
 }

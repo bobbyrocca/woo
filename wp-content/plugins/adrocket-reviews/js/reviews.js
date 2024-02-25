@@ -12,6 +12,10 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $("#review-link").click(function() {
+        $("#review_form_wrapper").slideToggle();
+    });
+
     $('#upload-btn').on('click', function (e) {
         e.preventDefault();
 

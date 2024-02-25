@@ -550,3 +550,79 @@ span.cart-shopping-solid {
     background: #f3fbff;
     border-radius: 5px;
 }
+
+.sticky-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    padding: 15px;
+    /*border-top: 1px solid #e7e7e7;*/
+    z-index: 1000;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sticky-button-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sticky-button-text {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.3em;
+    text-align: center;
+}
+
+.sticky-button-text span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #4a4a4a;
+}
+
+.sticky-button-scroll-to-cart {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    background: #2196F3;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 6px 18px;
+    border-radius: 8px;
+    border-bottom: 4px solid #1f5885;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.sticky-button-scroll-to-cart:hover{
+    opacity: 0.8;
+    transition: 1s;
+}
+
+img.button-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+/* if screen under 279px */
+
+@media (max-width: 279px) {
+    .sticky-button-scroll-to-cart {
+        flex-direction: column-reverse;
+    }
+    span.add-1 {
+        text-align: center;
+        line-height: 1.3em;
+    }
+    div.add-1 {
+        flex-direction: column-reverse;
+    }
+}

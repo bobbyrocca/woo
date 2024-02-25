@@ -410,3 +410,11 @@ function adrocket_show_main_review_badge( $item ) {
 }
 
 add_action( 'woocommerce_product_reviews_table_column_main_review', 'adrocket_show_main_review_badge' );
+
+function user_review_enqueue_scripts() {
+	if ( is_product() ) {
+		wp_enqueue_script( 'adrocket-user-review-js', plugin_dir_url( __FILE__ ) . 'js/user-reviews.js', array( 'jquery' ), microtime(), true );
+	}
+}
+
+add_action( 'wp_enqueue_scripts', 'user_review_enqueue_scripts' );

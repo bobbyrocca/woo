@@ -20,7 +20,7 @@ function adrocket_quantity_selectors(): string {
 	$product_id = $product->get_id();
 
 	$bundle_policy = get_post_meta( $product_id, 'bundle_policy', true );
-	$output        = '<div class="adrocket-block">';
+	$output        = '<div class="adrocket-block" id="adrocket-block">';
 	$output        .= '<div id="blocker" class="blocker hide"><div class="spinner"></div></div>';
 
 	$shipping_policy = get_post_meta( $product_id, 'shipping_policy', true );
@@ -139,6 +139,8 @@ function adrocket_quantity_selectors(): string {
 
 	$output .= guarantee_badge( 'IT' );
 
+	$output .= sticky_button( 'IT' );
+
 	return $output;
 }
 
@@ -148,10 +150,23 @@ add_action( 'woocommerce_before_add_to_cart_form', function () {
 	echo adrocket_quantity_selectors();
 } );
 
+function sticky_button( $language ): string {
+
+	$html = '<div class="sticky-button hide" id="stick-single">';
+	$html .= '<div class="sticky-button-inner">';
+	$html .= '<div class="sticky-button-text">Ordina ora e ricevi <strong class="blue">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
+	$html .= '<div class="sticky-button-scroll-to-cart" id="scroll-to-cart"><span class="add-1">Sì, lo voglio ordinare!</span><img class="button-icon" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/pointer.svg" alt="Secure Payment"></div>';
+	$html .= '</div>';
+	$html .= '</div>';
+
+	return $html;
+
+}
+
 function trust_badges( $language ): string {
 
 	$html = '<div class="trust-badges">';
-	$html .= '<div class="trust-row"><img class="trust-img flag" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/icons-it.svg" alt="Secure Payment"><span class="trust-text">Ordine spedito dal magazzino in Italia</span></div>';
+	$html .= '<div class="trust-row"><img class="trust-img flag" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/icons-it.svg" alt="Secure Payment"><span class="trust-text">Spedito dal magazzino in Italia</span></div>';
 	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/truck.svg" alt="Secure Payment"><span class="trust-text"><strong>Spedizione rapida</strong></span></div>';
 	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/guarantee.svg" alt="Secure Payment"><span class="trust-text">Soddisfazione garantita 30 giorni</span></div>';
 	$html .= '<div class="trust-row"><img class="trust-img" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/cod.svg" alt="30 Days Money Back Guarantee"><span class="trust-text">Pagamento alla consegna</span></div>';
@@ -337,8 +352,8 @@ function calcola_giorno_consegna( $shipping_days ): string {
 	return $day_of_week . ', ' . $now->format( 'd' ) . ' ' . $month; // R
 }
 
-add_action( 'woocommerce_before_cart_table' , 'delivery_eta');
-add_action( 'woocommerce_before_cart_collaterals' , 'free_shipping_notice');
+add_action( 'woocommerce_before_cart_table', 'delivery_eta' );
+add_action( 'woocommerce_before_cart_collaterals', 'free_shipping_notice' );
 
 function delivery_eta() {
 	echo '<div class="delivery-eta margin">Ordina ora e ricevi <strong class="orange">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
