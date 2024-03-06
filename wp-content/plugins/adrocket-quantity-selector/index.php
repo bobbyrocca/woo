@@ -129,7 +129,7 @@ function adrocket_quantity_selectors(): string {
 	// Parte finale della tua funzione adrocket_quantity_selectors
 	$output .= '    <div class="status-container">
         <div class="spia available"></div>
-        <div class="spia-text"><span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi <strong class="testo blue">' . calcola_giorno_consegna( 3 ) . '.</strong></span></div></div>';
+        <div class="spia-text"><span class="testo"><strong class="testo available">In magazzino!</strong> Ordina ora e ricevi entro <strong class="testo blue">' . calcola_giorno_consegna( 3 ) . '.</strong></span></div></div>';
 	$output .= '<div id="adrocket-add-to-cart" class="add-1 green enabled" data-enabled="1" data-product-id="' . esc_attr( $product_id ) . '"><span class="cart-shopping-solid"></span><span class="add-1">Add To Cart</span></div>';
 	$output .= '</div>';
 
@@ -154,7 +154,7 @@ function sticky_button( $language ): string {
 
 	$html = '<div class="sticky-button hide" id="stick-single">';
 	$html .= '<div class="sticky-button-inner">';
-	$html .= '<div class="sticky-button-text">Ordina ora e ricevi <strong class="blue">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
+	$html .= '<div class="sticky-button-text">Ordina ora e ricevi entro <strong class="blue">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
 	$html .= '<div class="sticky-button-scroll-to-cart" id="scroll-to-cart"><span class="add-1">Sì, lo voglio ordinare!</span><img class="button-icon" src="' . plugin_dir_url( __FILE__ ) . 'images/icons/pointer.svg" alt="Secure Payment"></div>';
 	$html .= '</div>';
 	$html .= '</div>';
@@ -356,7 +356,7 @@ add_action( 'woocommerce_before_cart_table', 'delivery_eta' );
 add_action( 'woocommerce_before_cart_collaterals', 'free_shipping_notice' );
 
 function delivery_eta() {
-	echo '<div class="delivery-eta margin">Ordina ora e ricevi <strong class="orange">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
+	echo '<div class="delivery-eta margin">Ordina ora e ricevi entro <strong class="orange">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
 }
 
 function free_shipping_notice() {

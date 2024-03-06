@@ -19,12 +19,21 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
-$heading = apply_filters( 'woocommerce_product_additional_information_heading', __( 'Additional information', 'woocommerce' ) );
+//$heading = apply_filters( 'woocommerce_product_additional_information_heading', __( 'Additional information', 'woocommerce' ) );
 
+$heading = false;
 ?>
 
 <?php if ( $heading ) : ?>
 	<h2><?php echo esc_html( $heading ); ?></h2>
 <?php endif; ?>
 
-<?php do_action( 'woocommerce_product_additional_information', $product ); ?>
+<?php /*do_action( 'woocommerce_product_additional_information', $product ); */?>
+
+<?php
+// Qui inserisci la funzione per visualizzare accordion delle FAQ
+// Controlla se la funzione esiste per evitare errori in caso il plugin non sia attivo
+if ( function_exists( 'aggiungi_faq_accordion_prodotto' ) ) {
+	aggiungi_faq_accordion_prodotto();
+}
+?>

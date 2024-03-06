@@ -235,7 +235,7 @@ summary {
 
 h1, h2, h3, h4, h5, h6 {
     clear: both;
-    font-weight: 300;
+    font-weight: 600;
     margin: 20px 0;
     color: #131315;
     font-family: Nunito, sans-serif;
@@ -246,7 +246,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 h1, .alpha {
-    font-size: 2.617924em;
+    font-size: 2.2em;
     line-height: 1.214;
     letter-spacing: -1px
 }
@@ -500,7 +500,7 @@ body {
     color: #333333;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 12px;
     position: relative;
 }
 
@@ -758,7 +758,7 @@ body {
 .aligncenter {
     clear: both;
     display: block;
-    margin: 0 auto
+    margin: 30px auto
 }
 
 .screen-reader-text {
@@ -2716,7 +2716,7 @@ span.verified-badge {
 
 @media (max-width: 499px) {
     div.review {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 

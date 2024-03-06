@@ -106,4 +106,3 @@ function aggiungi_faq_accordion_prodotto() {
 	echo '</div>';
 }
 
-add_action( 'woocommerce_product_additional_information', 'aggiungi_faq_accordion_prodotto', 60 );
