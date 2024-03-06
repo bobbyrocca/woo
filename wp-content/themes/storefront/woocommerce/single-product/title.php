@@ -41,7 +41,8 @@ if ( $rating_count > 0 ) : ?>
 			<?php // phpcs:enable ?>
 		<?php endif ?>
 	</div>
-	<?php
-	the_title( '<h1 class="product_title entry-title">', '</h1>' );
-	?>
+
 <?php endif; ?>
+<?php
+the_title( '<h1 class="product_title entry-title">', '</h1>' );
+?>

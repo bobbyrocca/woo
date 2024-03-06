@@ -12,8 +12,41 @@
 </div><!-- #content -->
 <?php do_action( 'storefront_before_footer' ); ?>
 <footer id="colophon" class="custom-site-footer">
+    <div class="footer-icons-container">
+        <div class="footer-icons-grid">
+            <div class="footer-icon-box">
+                <img class="footer-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/guarantee.svg" alt="">
+                <p class="footer-icon-text">Secure Payment</p>
+                <p class="footer-icon-subtext">Your security is our priority. All payments are 100% secure.</p>
+            </div>
+            <div class="footer-icon-box">
+                <img class="footer-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/guarantee.svg" alt="">
+                <p class="footer-icon-text">30 day return policy</p>
+                <p class="footer-icon-subtext">With our 30 day return policy, you can get a refund</p>
+            </div>
+            <div class="footer-icon-box">
+                <img class="footer-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/support.svg" alt="">
+                <p class="footer-icon-text">Customer service</p>
+                <p class="footer-icon-subtext">From Monday to Saturday from 8am to 5pm</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-stripe-box">
+        <img class="footer-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/footer.svg" alt="">
+    </div>
     <div class="footer-box">
         <div class="footer-wrapper">
+            <div class="upper-footer">
+                <div>
+                    <h4 class="site-footer-h4">Follow us on</h4>
+                </div>
+                <div class="social-icons-gid">
+                    <img class="social-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/facebook.svg" alt="">
+                    <img class="social-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/instagram.svg" alt="">
+                    <img class="social-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/youtube.svg" alt="">
+                    <img class="social-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/tiktok.svg" alt="">
+                </div>
+            </div>
             <div class="main-footer">
                 <!-- Blocks -->
                 <div class="footer-text">
@@ -130,19 +163,19 @@
             </div>
             <div class="secondary-footer">
                 <div class="footer-text small-gap">
-                   <p class="credential">
-                       Copyright © 2024 TheKiddoSpace UK | Name Stamps for Clothes, Organizers & Toys | TheKiddoSpace UK is a trade name of SN ECOMMERCE LLP | SN ECOMMERCE LLP - OC441736 - 128 City Road, London, UK EC1V 2NX
-                   </p>
+                    <p class="credential">
+                        Copyright © 2024 TheKiddoSpace UK | Name Stamps for Clothes, Organizers & Toys | TheKiddoSpace UK is a trade name of SN ECOMMERCE LLP | SN ECOMMERCE LLP - OC441736 - 128 City Road, London, UK EC1V 2NX
+                    </p>
                 </div>
                 <div class="footer-text small-gap">
                     <p class="credential">Payment methods:</p>
                     <div class="payment-grid">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/cod-pay.svg" alt="">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/amex.svg?v=1" alt="">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/maestro.svg" alt="">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/mastercard.svg" alt="">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/paypal.svg" alt="">
-                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) );?>wp-content/themes/storefront/images/icons/visa.svg" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/cod-pay.svg" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/amex.svg?v=1" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/maestro.svg" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/mastercard.svg" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/paypal.svg" alt="">
+                        <img class="payment-icon" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/visa.svg" alt="">
                     </div>
                 </div>
             </div>
