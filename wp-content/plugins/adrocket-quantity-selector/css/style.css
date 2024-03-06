@@ -557,11 +557,12 @@ span.cart-shopping-solid {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #ffffff;
+    background: #ffffffcc;
     padding: 15px;
-    /*border-top: 1px solid #e7e7e7;*/
+    /* border-top: 1px solid #e7e7e7; */
     z-index: 1000;
-    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 4px 0 rgb(0 0 0 / 10%);
+    backdrop-filter: blur(10px);
 }
 
 .sticky-button-inner {

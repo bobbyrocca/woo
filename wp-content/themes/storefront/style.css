@@ -580,6 +580,7 @@ body {
         padding: 10px;
     }
 }
+
 @media (max-width: 328px) {
     .custom-cart-amount {
         display: none;
@@ -2822,5 +2823,127 @@ div.hide {
     margin: 12px 0;
 }
 
+footer.custom-site-footer {
+    padding: 20px 0;
+    background: #ffe9b7;
+    border-color: #ffe9b7;
+    color: #333;
+    position: relative;
+    z-index: 0;
+}
 
+div.footer-box {
+    padding-top: 60px;
+    padding-bottom: 110px;
+}
 
+div.footer-wrapper {
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    max-width: 1180px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+div.main-footer {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 738px) {
+    div.main-footer {
+        grid-template-columns: 1fr;
+    }
+
+    div.footer-link-list {
+        text-align: center;
+    }
+
+    div.footer-text {
+        text-align: center;
+        align-items: center;
+    }
+}
+
+div.footer-logo {
+    max-width: 290px;
+}
+
+div.footer-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+p.no-margin {
+    margin: 0;
+}
+
+div.site-footer-rte {
+
+}
+
+ul.no-bullets-footer {
+    list-style: none outside;
+    margin: 0;
+}
+
+h4.site-footer-h4 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+a.footer-link {
+    color: #333;
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+a.footer-link:hover {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+div.secondary-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+p.credential {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #333;
+}
+
+div.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3px;
+    align-items: center;
+}
+
+img.payment-icon {
+    display: block;
+    width: 60px;
+}
+
+.footer-text.small-gap {
+    gap: 6px;
+}
+
+@media (max-width: 738px) {
+    div.secondary-footer {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    img.payment-icon {
+        width: 36px;
+    }
+}
