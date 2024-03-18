@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="footer-stripe-box">
-        <img class="footer-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/icons/footer.svg" alt="">
+        <img class="footer-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/footer.svg" alt="">
     </div>
     <div class="footer-box">
         <div class="footer-wrapper">

@@ -56,8 +56,8 @@
 }
 
 .site-search .widget_product_search input[type=text], .site-search .widget_product_search input[type=search] {
-    padding: 1em 1.41575em;
-    line-height: 1
+    padding: 10px;
+    line-height: 1;
 }
 
 .site-search .widget_product_search form::before {

@@ -451,12 +451,13 @@ body {
 .custom-site-header {
     display: block;
     position: relative;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); */
+    /* margin-bottom: 20px; */
     /* position: sticky; */
     /* top: 0; */
     /* z-index: 100; */
     /* background: #fff; */
+    /* border-bottom: 1px solid #e5e5e5; */
 }
 
 .custom-header-container {
@@ -465,7 +466,7 @@ body {
     align-items: center;
     justify-items: center;
     width: 100%;
-    padding: 12px 40px;
+    padding: 10px;
     margin: 0 auto;
     gap: 20px;
     justify-content: space-evenly;
@@ -474,7 +475,7 @@ body {
 }
 
 .custom-site-branding {
-    max-width: 280px;
+    max-width: 190px;
 }
 
 .whats-app {
@@ -2345,6 +2346,7 @@ div.custom-cart {
     align-items: flex-start;
     align-content: flex-start;
     flex-wrap: nowrap;
+    position: relative;
 }
 
 div.custom-cart-col-1 {
@@ -2360,8 +2362,9 @@ div.custom-cart-col-2 {
     flex: 1;
     max-width: 320px;
     position: sticky;
-    top: 0;
+    top: 42px;
     background: #ffffff;
+    z-index: 33;
 }
 
 @media (max-width: 1024px) {
@@ -2824,7 +2827,7 @@ div.hide {
 }
 
 footer.custom-site-footer {
-    padding: 20px 0;
+    padding: 0;
     color: #333;
     position: relative;
     z-index: 0;
@@ -3057,5 +3060,31 @@ img {
     border-radius: 3px;
     position: relative;
     z-index: 1;
-    top: 2px;
+    top: 0;
+}
+
+img.header-stripe {
+}
+
+div.top-header {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    line-height: 1em;
+    font-weight: 400;
+    /* box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%); */
+    position: sticky;
+    top: 0;
+    z-index: 98;
+    background: #fff;
+    border-bottom: 3px solid #ffb652;
+    padding: 6px 12px;
+    border-radius: 0 0 50% 50%
+}
+
+/* hide top-header in mobile */
+
+p.top-header-text {
+    margin: 0;
+    line-height: 1.3em;
 }

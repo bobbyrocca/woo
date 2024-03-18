@@ -48,7 +48,15 @@
 				?>
             </div>
         </div>
-    </header><!-- #masthead -->
+    </header>
+    <div class="top-header">
+        <p class="top-header-text">
+            <strong>Spedizione gratuita</strong> per ordini superiori a <strong>50€</strong>
+        </p>
+            <!--<img class="header-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/header.svg" alt="">-->
+
+    </div>
+    <!-- #masthead -->
 	<?php
 	/**
 	 * Functions hooked in to storefront_before_content
