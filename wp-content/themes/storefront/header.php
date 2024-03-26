@@ -25,37 +25,37 @@
 <?php do_action( 'storefront_before_site' ); ?>
 <div id="page" class="hfeed site">
 	<?php do_action( 'storefront_before_header' ); ?>
+
     <header class="custom-site-header">
         <div class="custom-header-container">
             <div class="custom-site-branding">
+	        <?php if ( ! is_cart() ) : ?>
 				<?php storefront_site_title_or_logo(); ?>
+	        <?php endif; ?>
             </div>
-            <div class="site-search">
-				<?php
-				if ( ! is_cart() && ! is_checkout() && ! is_product() ) {
-					the_widget( 'WC_Widget_Product_Search', 'title=' );
-				}
-				?>
+	        <?php if ( ! is_checkout() ) : ?>
+            <div class="header-text">
+                <strong>Spedizione gratuita</strong> per ordini superiori a <strong>50€</strong>
             </div>
-            <div class="whats-app">
-                <!-- WhatsApp -->
-            </div>
+	        <?php endif; ?>
             <div id="site-header-cart" class="custom-header-cart">
 				<?php
-				if ( ! is_cart() ) {
+				if ( ! is_cart() && ! is_checkout() ) {
 					storefront_cart_link();
 				}
 				?>
             </div>
         </div>
     </header>
-    <div class="top-header">
-        <p class="top-header-text">
-            <strong>Spedizione gratuita</strong> per ordini superiori a <strong>50€</strong>
-        </p>
-            <!--<img class="header-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/header.svg" alt="">-->
 
-    </div>
+	<?php if ( ! is_checkout() ) : ?>
+        <div class="top-header">
+            <p class="top-header-text">
+                <strong>Spedizione gratuita</strong> per ordini superiori a <strong>50€</strong>
+            </p>
+            <!--<img class="header-stripe" src="<?php echo esc_url( home_url( '/' ) ); ?>wp-content/themes/storefront/images/header.svg" alt="">-->
+        </div>
+	<?php endif; ?>
     <!-- #masthead -->
 	<?php
 	/**

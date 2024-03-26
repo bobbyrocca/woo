@@ -450,32 +450,32 @@ body {
 
 .custom-site-header {
     display: block;
-    position: relative;
-    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); */
-    /* margin-bottom: 20px; */
-    /* position: sticky; */
-    /* top: 0; */
-    /* z-index: 100; */
-    /* background: #fff; */
-    /* border-bottom: 1px solid #e5e5e5; */
+    position: sticky;
+    top: 0;
+    z-index: 98;
+    background: #fff;
+    border-bottom: 3px solid #ffb652;
+    border-radius: 0 0 50% 50%;
 }
 
 .custom-header-container {
-    display: flex;
-    grid-template-columns: 0.75fr 1fr 1fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     width: 100%;
-    padding: 10px;
     margin: 0 auto;
     gap: 20px;
-    justify-content: space-evenly;
-    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); */
-    /* margin-bottom: 20px; */
+
 }
 
 .custom-site-branding {
     max-width: 190px;
+    padding: 6px 0 16px 0;
+}
+
+.header-text {
+    padding: 12px;
 }
 
 .whats-app {
@@ -2525,11 +2525,13 @@ a.custom-add-to-cart-1 {
     gap: 6px;
     cursor: pointer;
     justify-content: center;
-    background: #2196F3;
+    /* background: #2196F3; */
+    background: #22971b !important;
     color: #ffffff;
     padding: 6px 18px;
     border-radius: 8px;
-    border-bottom: 4px solid #2168a1;
+    /* border-bottom: 4px solid #2168a1; */
+    border-bottom: 4px solid #1a7116 !important;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     text-decoration: none !important;
     white-space: nowrap;
@@ -3078,7 +3080,7 @@ div.top-header {
     z-index: 98;
     background: #fff;
     border-bottom: 3px solid #ffb652;
-    padding: 6px 12px;
+    padding: 12px;
     border-radius: 0 0 50% 50%
 }
 
@@ -3087,4 +3089,35 @@ div.top-header {
 p.top-header-text {
     margin: 0;
     line-height: 1.3em;
+}
+
+.wc-block-checkout__actions_row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    gap: 40px;
+}
+
+button.wc-block-components-checkout-place-order-button {
+    background: #22971b !important;
+    color: #ffffff !important;
+    padding: 10px 30px !important;
+    border-radius: 8px !important;
+    border-bottom: 4px solid #1a7116 !important;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+    width: 100% !important;
+    font-size: 28px;
+    min-height: unset !important;
+}
+
+.wc-block-components-form {
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.wc-block-components-main {
+    padding-right: 0 !important;
 }

@@ -18,6 +18,9 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( $cross_sells ) : ?>
+    <div>
+        <h3><?php esc_html_e( 'Di solito acquistati assieme&hellip;', 'woocommerce' ); ?></h3>
+    </div>
     <div class="cross-sells">
 		<?php woocommerce_product_loop_start(); ?>
 

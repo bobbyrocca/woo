@@ -540,6 +540,11 @@ span.cart-shopping-solid {
     margin-bottom: 10px;
 }
 
+.delivery-eta.blue-bg {
+    border: 1px solid #aacbe5;
+    background: #f3fbff;
+}
+
 .orange {
     color: #ff9800;
 }
@@ -592,13 +597,15 @@ span.cart-shopping-solid {
     gap: 6px;
     align-items: center;
     justify-content: center;
-    background: #2196F3;
+    /*background: #2196F3;*/
+    background: #22971b !important;
     color: #ffffff;
     font-size: 1.2rem;
     font-weight: bold;
     padding: 6px 18px;
     border-radius: 8px;
-    border-bottom: 4px solid #1f5885;
+    /* border-bottom: 4px solid #1f5885; */
+    border-bottom: 4px solid #1a7116 !important;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }

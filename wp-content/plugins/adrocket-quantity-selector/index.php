@@ -353,10 +353,10 @@ function calcola_giorno_consegna( $shipping_days ): string {
 }
 
 add_action( 'woocommerce_before_cart_table', 'delivery_eta' );
-add_action( 'woocommerce_before_cart_collaterals', 'free_shipping_notice' );
+//add_action( 'woocommerce_before_cart_collaterals', 'free_shipping_notice' );
 
 function delivery_eta() {
-	echo '<div class="delivery-eta margin">Ordina ora e ricevi entro <strong class="orange">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
+	echo '<div class="delivery-eta blue-bg margin">Ordina ora e ricevi entro <strong class="blue">' . calcola_giorno_consegna( 3 ) . '</strong></div>';
 }
 
 function free_shipping_notice() {
